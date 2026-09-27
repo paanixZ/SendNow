@@ -1,0 +1,885 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						name = "Crate01_LOD0"
+						filename = "models/citizen_props/crate01.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = true
+							exception_list = 
+							[
+								"Crate01_LOD0",
+							]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "Crate01_LOD1"
+						filename = "models/citizen_props/crate01.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = true
+							exception_list = 
+							[
+								"Crate01_LOD1",
+							]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "Crate01_LOD2"
+						filename = "models/citizen_props/crate01.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = true
+							exception_list = 
+							[
+								"Crate01_LOD2",
+							]
+						}
+					},
+				]
+			},
+			{
+				_class = "LODGroupList"
+				children = 
+				[
+					{
+						_class = "LODGroup"
+						name = "Crate01_LOD0"
+						switch_threshold = 0.0
+						meshes = 
+						[
+							"Crate01_LOD0",
+						]
+					},
+					{
+						_class = "LODGroup"
+						name = "Crate01_LOD1"
+						switch_threshold = 50.0
+						meshes = 
+						[
+							"Crate01_LOD1",
+						]
+					},
+					{
+						_class = "LODGroup"
+						name = "Crate01_LOD2"
+						switch_threshold = 100.0
+						meshes = 
+						[
+							"Crate01_LOD2",
+						]
+					},
+				]
+			},
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = [  ]
+						use_global_default = true
+						global_default_material = "models/citizen_props/crate01a.vmat"
+					},
+				]
+			},
+			{
+				_class = "BreakPieceList"
+				children = 
+				[
+					{
+						_class = "BreakPieceEmbedded"
+						children = 
+						[
+							{
+								_class = "GenericGameData"
+								game_class = "prop_data"
+								game_keys = 
+								{
+									base = ""
+									allowstatic = false
+									bakelighting = true
+									health = -1.0
+									spawn_motion_disabled = false
+									min_impact_damage_speed = 750.0
+									impact_damage = 10.0
+									parent_bodygroup_name = ""
+									parent_bodygroup_value = 0
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/crate01gibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"Crate01_LOD0",
+										"Crate01Gib01_LOD0",
+									]
+								}
+							},
+							{
+								_class = "PhysicsShapeBox"
+								parent_bone = ""
+								surface_prop = "Wood"
+								collision_tags = "solid"
+								origin = [ 2.261764, 16.616444, 6.153393 ]
+								angles = [ 0.0, 0.0, 0.0 ]
+								dimensions = [ 27.305864, 1.005761, 4.041416 ]
+							},
+							{
+								_class = "PhysicsShapeBox"
+								parent_bone = ""
+								surface_prop = "Wood"
+								collision_tags = "solid"
+								origin = [ 14.158834, 15.025236, 20.973408 ]
+								angles = [ 0.0, 0.0, 0.0 ]
+								dimensions = [ 3.511722, 3.833124, 33.68145 ]
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						children = 
+						[
+							{
+								_class = "GenericGameData"
+								game_class = "prop_data"
+								game_keys = 
+								{
+									base = ""
+									allowstatic = false
+									bakelighting = true
+									health = -1.0
+									spawn_motion_disabled = false
+									min_impact_damage_speed = 750.0
+									impact_damage = 10.0
+									parent_bodygroup_name = ""
+									parent_bodygroup_value = 0
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/crate01gibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"Crate01_LOD0",
+										"Crate01Gib02_LOD0",
+									]
+								}
+							},
+							{
+								_class = "PhysicsShapeBox"
+								parent_bone = ""
+								surface_prop = "Wood"
+								collision_tags = "solid"
+								origin = [ -16.405003, 15.341106, 20.973408 ]
+								angles = [ 0.0, 0.0, 0.0 ]
+								dimensions = [ 2.927821, 3.057785, 33.68145 ]
+							},
+							{
+								_class = "PhysicsShapeBox"
+								parent_bone = ""
+								surface_prop = "Wood"
+								collision_tags = "solid"
+								origin = [ -18.303244, 1.511674, 35.35503 ]
+								angles = [ 0.0, 0.0, 0.0 ]
+								dimensions = [ 0.61235, 23.668215, 3.37963 ]
+							},
+							{
+								_class = "PhysicsShapeBox"
+								parent_bone = ""
+								surface_prop = "Wood"
+								collision_tags = "solid"
+								origin = [ -18.303244, 1.511674, 6.759687 ]
+								angles = [ 0.0, 0.0, 0.0 ]
+								dimensions = [ 0.61235, 23.668215, 3.819138 ]
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						children = 
+						[
+							{
+								_class = "GenericGameData"
+								game_class = "prop_data"
+								game_keys = 
+								{
+									base = ""
+									allowstatic = false
+									bakelighting = true
+									health = -1.0
+									spawn_motion_disabled = false
+									min_impact_damage_speed = 750.0
+									impact_damage = 10.0
+									parent_bodygroup_name = ""
+									parent_bodygroup_value = 0
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/crate01gibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"Crate01_LOD0",
+										"Crate01Gib03_LOD0",
+									]
+								}
+							},
+							{
+								_class = "PhysicsShapeBox"
+								parent_bone = ""
+								surface_prop = "Wood"
+								collision_tags = "solid"
+								origin = [ 1.635606, -16.896919, 35.488773 ]
+								angles = [ 0.0, 0.0, 0.0 ]
+								dimensions = [ 26.726292, 0.868382, 3.81939 ]
+							},
+							{
+								_class = "PhysicsShapeBox"
+								parent_bone = ""
+								surface_prop = "wood"
+								collision_tags = "solid"
+								origin = [ 13.843458, -14.988321, 34.877556 ]
+								angles = [ 0.0, 0.0, 0.0 ]
+								dimensions = [ 4.18108, 4.255707, 3.790903 ]
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						children = 
+						[
+							{
+								_class = "GenericGameData"
+								game_class = "prop_data"
+								game_keys = 
+								{
+									base = ""
+									allowstatic = false
+									bakelighting = true
+									health = -1.0
+									spawn_motion_disabled = false
+									min_impact_damage_speed = 750.0
+									impact_damage = 10.0
+									parent_bodygroup_name = ""
+									parent_bodygroup_value = 0
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/crate01gibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"Crate01_LOD0",
+										"Crate01Gib04_LOD0",
+									]
+								}
+							},
+							{
+								_class = "PhysicsShapeBox"
+								parent_bone = ""
+								surface_prop = "Wood"
+								collision_tags = "solid"
+								origin = [ -1.193308, -16.896919, 20.58523 ]
+								angles = [ 0.0, 0.0, 0.0 ]
+								dimensions = [ 32.384121, 0.868382, 24.77071 ]
+							},
+							{
+								_class = "PhysicsShapeBox"
+								parent_bone = ""
+								surface_prop = "Wood"
+								collision_tags = "solid"
+								origin = [ -17.940636, -2.847997, 20.58523 ]
+								angles = [ 0.0, 0.0, 0.0 ]
+								dimensions = [ 0.602096, 28.966228, 24.77071 ]
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						children = 
+						[
+							{
+								_class = "GenericGameData"
+								game_class = "prop_data"
+								game_keys = 
+								{
+									base = ""
+									allowstatic = false
+									bakelighting = true
+									health = -1.0
+									spawn_motion_disabled = false
+									min_impact_damage_speed = 750.0
+									impact_damage = 10.0
+									parent_bodygroup_name = ""
+									parent_bodygroup_value = 0
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/crate01gibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"Crate01_LOD0",
+										"Crate01Gib05_LOD0",
+									]
+								}
+							},
+							{
+								_class = "PhysicsShapeBox"
+								parent_bone = ""
+								surface_prop = "Wood"
+								collision_tags = "solid"
+								origin = [ -1.187475, 16.104168, 34.966015 ]
+								angles = [ 0.0, 0.0, 0.0 ]
+								dimensions = [ 24.571877, 1.40947, 3.873591 ]
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						children = 
+						[
+							{
+								_class = "GenericGameData"
+								game_class = "prop_data"
+								game_keys = 
+								{
+									base = ""
+									allowstatic = false
+									bakelighting = true
+									health = -1.0
+									spawn_motion_disabled = false
+									min_impact_damage_speed = 750.0
+									impact_damage = 10.0
+									parent_bodygroup_name = ""
+									parent_bodygroup_value = 0
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/crate01gibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"Crate01_LOD0",
+										"Crate01Gib06_LOD0",
+									]
+								}
+							},
+							{
+								_class = "PhysicsShapeBox"
+								parent_bone = ""
+								surface_prop = "Wood"
+								collision_tags = "solid"
+								origin = [ -1.186541, -0.244253, 37.311691 ]
+								angles = [ 0.0, 0.0, 0.0 ]
+								dimensions = [ 33.583382, 34.106312, 0.669684 ]
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						children = 
+						[
+							{
+								_class = "GenericGameData"
+								game_class = "prop_data"
+								game_keys = 
+								{
+									base = ""
+									allowstatic = false
+									bakelighting = true
+									health = -1.0
+									spawn_motion_disabled = true
+									min_impact_damage_speed = 750.0
+									impact_damage = 10.0
+									parent_bodygroup_name = ""
+									parent_bodygroup_value = 0
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/crate01gibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"Crate01_LOD0",
+										"Crate01Gib07_LOD0",
+									]
+								}
+							},
+							{
+								_class = "PhysicsShapeBox"
+								parent_bone = ""
+								surface_prop = "Wood"
+								collision_tags = "solid"
+								origin = [ -1.186541, -0.244253, 1.918484 ]
+								angles = [ 0.0, 0.0, 0.0 ]
+								dimensions = [ 33.583382, 34.106312, 3.576841 ]
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						children = 
+						[
+							{
+								_class = "GenericGameData"
+								game_class = "prop_data"
+								game_keys = 
+								{
+									base = ""
+									allowstatic = false
+									bakelighting = true
+									health = -1.0
+									spawn_motion_disabled = false
+									min_impact_damage_speed = 750.0
+									impact_damage = 10.0
+									parent_bodygroup_name = ""
+									parent_bodygroup_value = 0
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/crate01gibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"Crate01_LOD0",
+										"Crate01Gib08_LOD0",
+									]
+								}
+							},
+							{
+								_class = "PhysicsShapeBox"
+								parent_bone = ""
+								surface_prop = "Wood"
+								collision_tags = "solid"
+								origin = [ -1.082277, 15.714047, 21.518074 ]
+								angles = [ 0.0, 0.0, 0.0 ]
+								dimensions = [ 26.030216, 0.65288, 23.825094 ]
+							},
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = ""
+								surface_prop = "Wood"
+								collision_tags = "solid"
+								radius = 1.0
+								point0 = [ 11.271969, 16.016197, 34.305313 ]
+								point1 = [ -13.685123, 16.114498, 33.911411 ]
+							},
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = ""
+								surface_prop = "Wood"
+								collision_tags = "solid"
+								radius = 1.0
+								point0 = [ 11.440086, 15.548956, 8.769823 ]
+								point1 = [ -13.517006, 15.647257, 8.375921 ]
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						children = 
+						[
+							{
+								_class = "GenericGameData"
+								game_class = "prop_data"
+								game_keys = 
+								{
+									base = ""
+									allowstatic = false
+									bakelighting = true
+									health = -1.0
+									spawn_motion_disabled = false
+									min_impact_damage_speed = 750.0
+									impact_damage = 10.0
+									parent_bodygroup_name = ""
+									parent_bodygroup_value = 0
+								}
+							},
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/crate01gibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 0.0, 0.0, 0.0 ]
+								import_scale = 1.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"Crate01_LOD0",
+										"Crate01Gib09_LOD0",
+									]
+								}
+							},
+							{
+								_class = "PhysicsShapeBox"
+								parent_bone = ""
+								surface_prop = "Wood"
+								collision_tags = "solid"
+								origin = [ 15.475201, -1.3695, 20.298157 ]
+								angles = [ 0.0, 0.0, 0.0 ]
+								dimensions = [ 0.693246, 26.397524, 32.475975 ]
+							},
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = ""
+								surface_prop = "Wood"
+								collision_tags = "solid"
+								radius = 1.0
+								point0 = [ 15.59232, 9.359026, 3.927624 ]
+								point1 = [ 15.300024, -12.782209, 3.997235 ]
+							},
+							{
+								_class = "PhysicsShapeCapsule"
+								parent_bone = ""
+								surface_prop = "Wood"
+								collision_tags = "solid"
+								radius = 1.0
+								point0 = [ 14.42377, 10.355949, 36.18338 ]
+								point1 = [ 14.131474, -11.785286, 36.252991 ]
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "wood.sheet"
+						collision_tags = "solid"
+						origin = [ -1.145618, -0.131191, 20.756577 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 34.084175, 34.584232, 34.839699 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "wood.sheet"
+						collision_tags = "solid"
+						origin = [ -1.145618, 11.194388, 1.850909 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 34.084175, 4.295393, 3.358396 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "wood.sheet"
+						collision_tags = "solid"
+						origin = [ -1.145618, -10.886905, 1.850909 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 34.084175, 4.388992, 3.358396 ]
+					},
+				]
+			},
+			{
+				_class = "GameDataList"
+				children = 
+				[
+					{
+						_class = "GenericGameData"
+						game_class = "ao_proxy_box"
+						game_keys = 
+						{
+							bonename = ""
+							dimensions = [ 32.5634, 32.5024, 34.5384 ]
+							offset_origin = [ -1.31798, 0.021939, 20.6623 ]
+							offset_angles = [ 0.0, 0.0, 0.0 ]
+						}
+					},
+					{
+						_class = "GenericGameData"
+						game_class = "prop_data"
+						game_keys = 
+						{
+							base = ""
+							allowstatic = false
+							bakelighting = true
+							health = 30.0
+							spawn_motion_disabled = false
+							min_impact_damage_speed = 750.0
+							impact_damage = 10.0
+							parent_bodygroup_name = ""
+							parent_bodygroup_value = 0
+						}
+					},
+					{
+						_class = "GenericGameData"
+						game_class = "ao_proxy_box"
+						game_keys = 
+						{
+							bonename = ""
+							dimensions = [ 32.5634, 4.86682, 3.19127 ]
+							offset_origin = [ -1.31798, 11.6504, 1.86859 ]
+							offset_angles = [ 0.0, 0.0, 0.0 ]
+						}
+					},
+					{
+						_class = "GenericGameData"
+						game_class = "ao_proxy_box"
+						game_keys = 
+						{
+							bonename = ""
+							dimensions = [ 32.5634, 3.9485, 3.19127 ]
+							offset_origin = [ -1.31798, -10.9254, 1.86859 ]
+							offset_angles = [ 0.0, 0.0, 0.0 ]
+						}
+					},
+				]
+			},
+		]
+		model_archetype = "physics_prop_model"
+		primary_associated_entity = "prop_physics"
+		anim_graph_name = ""
+		base_model_name = ""
+	}
+}

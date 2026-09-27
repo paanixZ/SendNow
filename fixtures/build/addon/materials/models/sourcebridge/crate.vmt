@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/sourcebridge/crate"
+	"$surfaceprop" "Wood_Crate"
+}

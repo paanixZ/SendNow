@@ -1,0 +1,901 @@
+{
+ "classes": {
+  "1DBlend": {
+   "_class": 12,
+   "activity_name": 12,
+   "activity_weight": 12,
+   "anim_markup_ordered": 12,
+   "blendList": 12,
+   "delta": 12,
+   "disable_compression": 12,
+   "disable_interpolation": 12,
+   "disabled": 4,
+   "enable_scale": 12,
+   "fade_in_time": 12,
+   "fade_out_time": 12,
+   "hidden": 12,
+   "looping": 12,
+   "name": 12,
+   "poseParam": 12,
+   "weight_list_name": 12,
+   "worldSpace": 12
+  },
+  "2DBlend": {
+   "_class": 8,
+   "activity_name": 8,
+   "activity_weight": 8,
+   "anim_markup_ordered": 8,
+   "blend_anim_list": 8,
+   "col_pose_param_name": 8,
+   "col_weight_list": 8,
+   "delta": 8,
+   "disable_compression": 8,
+   "disable_interpolation": 8,
+   "disabled": 3,
+   "enable_scale": 8,
+   "fade_in_time": 8,
+   "fade_out_time": 8,
+   "hidden": 8,
+   "looping": 8,
+   "name": 8,
+   "row_pose_param_name": 8,
+   "row_weight_list": 8,
+   "weight_list_name": 8,
+   "worldSpace": 8
+  },
+  "AnimAddLayer": {
+   "_class": 264,
+   "anim_name": 264
+  },
+  "AnimAlign": {
+   "_class": 161,
+   "align_frame_type": 161,
+   "align_rx": 161,
+   "align_ry": 161,
+   "align_rz": 161,
+   "align_to_anim": 161,
+   "align_to_frame": 161,
+   "align_to_frame_type": 161,
+   "align_tx": 161,
+   "align_ty": 161,
+   "align_tz": 161,
+   "bone": 161,
+   "frame": 161
+  },
+  "AnimBindPose": {
+   "_class": 24,
+   "activity_name": 24,
+   "activity_weight": 24,
+   "anim_markup_ordered": 24,
+   "delta": 24,
+   "disable_compression": 24,
+   "disable_interpolation": 16,
+   "enable_scale": 19,
+   "fade_in_time": 24,
+   "fade_out_time": 24,
+   "frame_count": 24,
+   "frame_rate": 24,
+   "hidden": 24,
+   "looping": 24,
+   "name": 24,
+   "weight_list_name": 24,
+   "worldSpace": 24
+  },
+  "AnimConstraintAim": {
+   "_class": 2,
+   "aim_offset": 2,
+   "note": 2,
+   "up_type": 2,
+   "up_vector": 2
+  },
+  "AnimConstraintAttachmentInput": {
+   "_class": 26,
+   "parent_attachment": 26,
+   "relative_angles": 26,
+   "relative_origin": 26,
+   "weight": 26
+  },
+  "AnimConstraintBoneInput": {
+   "_class": 236,
+   "parent_bone": 236,
+   "relative_angles": 236,
+   "relative_origin": 236,
+   "weight": 236
+  },
+  "AnimConstraintList": {
+   "_class": 54,
+   "note": 1
+  },
+  "AnimConstraintOrient": {
+   "_class": 28,
+   "name": 8,
+   "note": 2
+  },
+  "AnimConstraintParent": {
+   "_class": 28,
+   "constrained_bone": 28,
+   "name": 24,
+   "note": 10,
+   "rotation_offset_xyz": 28,
+   "translation_offset": 28,
+   "weight": 28
+  },
+  "AnimConstraintSlave": {
+   "_class": 260,
+   "parent_bone": 260,
+   "relative_angles": 260,
+   "relative_origin": 260,
+   "weight": 260
+  },
+  "AnimConstraintTiltTwist": {
+   "_class": 204,
+   "input_axis": 204,
+   "name": 204,
+   "note": 8,
+   "slave_axis": 204
+  },
+  "AnimEvent": {
+   "_class": 78,
+   "event_class": 78,
+   "event_frame": 78,
+   "event_keys": 78
+  },
+  "AnimFile": {
+   "_class": 875,
+   "activity_name": 875,
+   "activity_weight": 875,
+   "anim_hold_list": 55,
+   "anim_markup_ordered": 875,
+   "delta": 875,
+   "disable_compression": 875,
+   "disable_interpolation": 854,
+   "disabled": 30,
+   "enable_scale": 867,
+   "end_frame": 875,
+   "fade_in_time": 875,
+   "fade_out_time": 875,
+   "framerate": 875,
+   "hidden": 875,
+   "looping": 875,
+   "name": 875,
+   "note": 56,
+   "reverse": 875,
+   "source_filename": 875,
+   "start_frame": 875,
+   "take": 875,
+   "weight_list_name": 875,
+   "worldSpace": 875
+  },
+  "AnimLinearDelta": {
+   "_class": 1,
+   "spline": 1
+  },
+  "AnimOffset": {
+   "_class": 144,
+   "note": 6,
+   "rotation_xyz": 144,
+   "translation": 144
+  },
+  "AnimSmoothLoop": {
+   "_class": 62,
+   "disabled": 4,
+   "frames_from_end": 62,
+   "frames_from_start": 62
+  },
+  "AnimStartLoop": {
+   "_class": 10,
+   "start_loop_frame": 10
+  },
+  "AnimSubtract": {
+   "_class": 199,
+   "anim_name": 199,
+   "frame": 199
+  },
+  "AnimSubtractModelSpace": {
+   "_class": 34,
+   "anim_name": 34,
+   "frame": 34
+  },
+  "AnimationList": {
+   "_class": 39,
+   "default_root_bone_name": 39
+  },
+  "Attachment": {
+   "_class": 82,
+   "disabled": 8,
+   "ignore_rotation": 82,
+   "name": 82,
+   "note": 8,
+   "parent_bone": 82,
+   "relative_angles": 82,
+   "relative_origin": 82,
+   "weight": 82
+  },
+  "AttachmentInfluence": {
+   "_class": 62,
+   "name": 8,
+   "parent_bone": 62,
+   "relative_angles": 62,
+   "relative_origin": 62,
+   "weight": 62
+  },
+  "AttachmentList": {
+   "_class": 10
+  },
+  "BodyGroup": {
+   "_class": 10,
+   "hidden_in_tools": 10,
+   "name": 10
+  },
+  "BodyGroupChoice": {
+   "_class": 24,
+   "meshes": 24,
+   "name": 2
+  },
+  "BodyGroupList": {
+   "_class": 6,
+   "note": 1
+  },
+  "BoneMarkup": {
+   "_class": 164,
+   "do_not_discard": 164,
+   "ignore_Translation": 164,
+   "ignore_rotation": 164,
+   "target_bone": 164
+  },
+  "BoneMarkupList": {
+   "_class": 11,
+   "bone_cull_type": 11
+  },
+  "BreakCommand": {
+   "_class": 4,
+   "game_class": 4,
+   "game_keys": 4
+  },
+  "BreakPieceEmbedded": {
+   "_class": 72,
+   "collision_group": 33,
+   "collision_tags": 39,
+   "fade_max_dist": 72,
+   "fade_min_dist": 72,
+   "fadetime": 72,
+   "is_essential_piece": 72,
+   "is_ragdoll": 72,
+   "manual_mode": 72,
+   "name": 63,
+   "name_mode": 72,
+   "offset": 72,
+   "placement_attach": 72,
+   "placement_bone": 72,
+   "placement_mode": 72,
+   "random_spawn_chance": 72,
+   "surface_prop_override": 72
+  },
+  "BreakPieceList": {
+   "_class": 16
+  },
+  "CVClothProxyMeshList": {
+   "_class": 1,
+   "m_bCreateStaticBone": 1,
+   "m_bDriveMeshesWithBacksolvedJointsOnly": 1,
+   "m_bRemoveUnusedBonesEnabled": 1,
+   "m_bReservedBool2": 1,
+   "m_bReservedBool3": 1,
+   "m_bReservedBool4": 1,
+   "m_bSoftSkinAnimation": 1,
+   "m_clothProxyMeshList": 1,
+   "m_flClothEnableThreshold": 1,
+   "m_flFallbackEnvelope": 1,
+   "m_flMatchProxiesToMeshes": 1,
+   "m_nMaxBonesPerVertex": 1,
+   "m_nReservedInt": 1
+  },
+  "ClothNode": {
+   "_class": 6,
+   "allow_rotation": 6,
+   "angles": 6,
+   "cloth_collision_layer0": 6,
+   "cloth_collision_layer1": 6,
+   "cloth_collision_layer2": 6,
+   "cloth_collision_layer3": 6,
+   "cloth_node_root_bone": 6,
+   "collision_radius": 6,
+   "friction": 6,
+   "goal_damping": 6,
+   "goal_strength": 6,
+   "gravity_z": 6,
+   "has_stray_radius": 6,
+   "has_world_collision": 6,
+   "is_static_node": 6,
+   "mass": 6,
+   "name": 6,
+   "node_base_x0": 6,
+   "node_base_x1": 6,
+   "node_base_y0": 6,
+   "node_base_y1": 6,
+   "origin": 6,
+   "stray_radius": 6,
+   "stray_radius_relaxation_factor": 6,
+   "super_damping": 6,
+   "transform_alignment": 6
+  },
+  "ClothShapeBox": {
+   "_class": 4,
+   "angles": 4,
+   "cloth_collision_layer0": 4,
+   "cloth_collision_layer1": 4,
+   "cloth_collision_layer2": 4,
+   "cloth_collision_layer3": 4,
+   "cloth_collision_priority": 4,
+   "cloth_stickiness": 4,
+   "dimensions": 4,
+   "inverted_collision": 4,
+   "name": 4,
+   "origin": 4,
+   "parent_bone": 4,
+   "vertex_map": 4
+  },
+  "ClothShapeCapsule": {
+   "_class": 22,
+   "cloth_collision_layer0": 22,
+   "cloth_collision_layer1": 22,
+   "cloth_collision_layer2": 22,
+   "cloth_collision_layer3": 22,
+   "cloth_collision_priority": 22,
+   "cloth_stickiness": 22,
+   "inverted_collision": 22,
+   "name": 22,
+   "parent_bone": 22,
+   "point0": 22,
+   "point1": 22,
+   "radius0": 22,
+   "radius1": 22,
+   "vertex_map": 22
+  },
+  "ClothShapeList": {
+   "_class": 6
+  },
+  "DefaultMaterialGroup": {
+   "_class": 512,
+   "disabled": 2,
+   "global_default_material": 512,
+   "remaps": 512,
+   "use_global_default": 512
+  },
+  "EmptyAnim": {
+   "_class": 16,
+   "activity_name": 16,
+   "activity_weight": 16,
+   "anim_markup_ordered": 16,
+   "delta": 16,
+   "disable_compression": 16,
+   "disable_interpolation": 16,
+   "disabled": 16,
+   "enable_scale": 16,
+   "fade_in_time": 16,
+   "fade_out_time": 16,
+   "frame_count": 16,
+   "frame_rate": 16,
+   "hidden": 16,
+   "looping": 16,
+   "name": 16,
+   "weight_list_name": 16,
+   "worldSpace": 16
+  },
+  "ExtractMotion": {
+   "_class": 19,
+   "extract_rz": 19,
+   "extract_tx": 19,
+   "extract_ty": 19,
+   "extract_tz": 19,
+   "linear": 19,
+   "motion_type": 19,
+   "quadratic": 19,
+   "root_bone_name": 19
+  },
+  "Feet": {
+   "_class": 2,
+   "heighttolerance": 2,
+   "locktolerance": 2,
+   "sanitizetrajectories": 2
+  },
+  "Folder": {
+   "_class": 203,
+   "disabled": 14,
+   "name": 203,
+   "note": 15
+  },
+  "Foot": {
+   "_class": 4,
+   "anklebone": 4,
+   "autolevel": 4,
+   "balloffset": 4,
+   "heeloffset": 4,
+   "name": 4,
+   "toebone": 4,
+   "traceheight": 4,
+   "traceradius": 4
+  },
+  "GameDataList": {
+   "_class": 37
+  },
+  "GenericGameData": {
+   "_class": 126,
+   "disabled": 36,
+   "game_class": 126,
+   "game_keys": 126,
+   "name": 16
+  },
+  "HitboxCapsule": {
+   "_class": 88,
+   "name": 40,
+   "parent_bone": 88,
+   "point0": 88,
+   "point1": 88,
+   "radius": 88,
+   "surface_property": 88,
+   "tags": 88,
+   "translation_only": 88
+  },
+  "HitboxSet": {
+   "_class": 3,
+   "name": 3
+  },
+  "HitboxSetList": {
+   "_class": 9
+  },
+  "IKChain": {
+   "_class": 8,
+   "m_Data.m_DefaultTargetSettings.m_AnimgraphParameterNamePosition": 8,
+   "m_Data.m_EndEffectorFixedOffsetAttachment": 8,
+   "m_Data.m_bParentJointRequiresAlignment": 8,
+   "m_DefaultSolverSettings.m_SolverType ": 8,
+   "m_DefaultSolverSettings.m_nNumIterations": 8,
+   "m_DefaultTargetSettings.m_Bone": 8,
+   "m_DefaultTargetSettings.m_TargetSource": 8,
+   "m_bDoBonesOrientAlongPositiveX": 8,
+   "name": 8
+  },
+  "IKChainJoint": {
+   "_class": 24,
+   "bone": 24,
+   "name": 24
+  },
+  "IKChainOld": {
+   "_class": 8,
+   "break_restoration_time": 8,
+   "end_effector_bone": 8,
+   "end_effector_target_bone": 8,
+   "footstep_attachment": 8,
+   "footstep_footstep_sound_type": 8,
+   "footstep_sound": 8,
+   "hyperextension_release_dot_threshold": 8,
+   "max_lock_distance_to_target": 8,
+   "name": 8,
+   "reverse_footlock_bone": 8,
+   "root_bone": 8,
+   "soften_percentage": 8,
+   "soften_time": 8,
+   "solver": 8,
+   "use_target_instead_of_lock_threshold": 8
+  },
+  "IKData": {
+   "_class": 8
+  },
+  "IKJointConstraint_Hinge": {
+   "_class": 4,
+   "constrained_joint": 4,
+   "hinge_axis": 4,
+   "max_radians": 4,
+   "min_radians": 4,
+   "note": 2
+  },
+  "IKRigBiped": {
+   "_class": 2,
+   "abs_origin_drop_height": 2,
+   "abs_origin_drop_height_spring_strength": 2,
+   "animgraph_master_blend_parameter_name": 2,
+   "default_tilt_spring_strength": 2,
+   "disabled": 2,
+   "initial_master_blend_amount": 2,
+   "note": 2,
+   "system": 2,
+   "tilt_bone": 2
+  },
+  "IKRuleGround": {
+   "_class": 4,
+   "normal_spring_strength": 4,
+   "trace_height": 4,
+   "trace_radius": 4,
+   "z_spring_strength": 4
+  },
+  "JiggleBone": {
+   "_class": 15,
+   "allow_flex_length": 15,
+   "along_damping": 15,
+   "along_stiffness": 15,
+   "angle_limit": 15,
+   "base_damping": 15,
+   "base_forward_friction": 15,
+   "base_forward_max": 15,
+   "base_forward_min": 15,
+   "base_left_friction": 15,
+   "base_left_max": 15,
+   "base_left_min": 15,
+   "base_mass": 15,
+   "base_stiffness": 15,
+   "base_up_friction": 15,
+   "base_up_max": 15,
+   "base_up_min": 15,
+   "cloth_collision_layer0": 15,
+   "cloth_collision_layer1": 15,
+   "cloth_collision_layer2": 15,
+   "cloth_collision_layer3": 15,
+   "disabled": 1,
+   "has_angle_constraint": 15,
+   "has_base_spring": 15,
+   "has_collision": 15,
+   "has_pitch_constraint": 15,
+   "has_yaw_constraint": 15,
+   "invert_axes": 15,
+   "jiggle_root_bone": 15,
+   "jiggle_type": 15,
+   "length": 15,
+   "max_pitch": 15,
+   "max_yaw": 15,
+   "min_pitch": 15,
+   "min_yaw": 15,
+   "pitch_bounce": 15,
+   "pitch_damping": 15,
+   "pitch_friction": 15,
+   "pitch_stiffness": 15,
+   "point0": 15,
+   "point1": 15,
+   "radius0": 15,
+   "radius1": 15,
+   "tip_mass": 15,
+   "yaw_bounce": 15,
+   "yaw_damping": 15,
+   "yaw_friction": 15,
+   "yaw_stiffness": 15
+  },
+  "JiggleBoneList": {
+   "_class": 8
+  },
+  "LODGroup": {
+   "_class": 1704,
+   "auto_lock_border_vertices": 12,
+   "auto_max_error": 12,
+   "auto_permissive_simplification": 12,
+   "auto_protect_uv_seams": 12,
+   "auto_prune_isolated_components": 12,
+   "auto_reduction": 12,
+   "auto_regularize": 12,
+   "auto_simplify_mode": 12,
+   "meshes": 1704,
+   "name": 121,
+   "note": 4,
+   "switch_threshold": 1704
+  },
+  "LODGroupList": {
+   "_class": 439
+  },
+  "LookAtChain": {
+   "_class": 22,
+   "lookat_chain": 22,
+   "name": 22
+  },
+  "MaterialGroup": {
+   "_class": 9,
+   "name": 9,
+   "remaps": 9
+  },
+  "MaterialGroupList": {
+   "_class": 512
+  },
+  "ModelModifierList": {
+   "_class": 375
+  },
+  "ModelModifier_ScaleAndMirror": {
+   "_class": 374,
+   "disabled": 1,
+   "flip_bone_forward": 374,
+   "mirror_x": 374,
+   "mirror_y": 374,
+   "mirror_z": 374,
+   "note": 7,
+   "scale": 374,
+   "swap_left_and_right_bones": 374
+  },
+  "MorphFrame": {
+   "_class": 89,
+   "activity_name": 89,
+   "activity_weight": 89,
+   "anim_markup_ordered": 89,
+   "delta": 89,
+   "disable_compression": 89,
+   "disable_interpolation": 59,
+   "disabled": 4,
+   "enable_scale": 89,
+   "fade_in_time": 89,
+   "fade_out_time": 89,
+   "hidden": 89,
+   "looping": 89,
+   "morph_weights": 89,
+   "name": 89,
+   "note": 56,
+   "weight_list_name": 89,
+   "worldSpace": 89
+  },
+  "MovementSettings": {
+   "_class": 2,
+   "movementsettings": 2
+  },
+  "PhysicsBodyMarkup": {
+   "_class": 5,
+   "angular_damping": 5,
+   "inertia_scale": 5,
+   "linear_damping": 5,
+   "mass_center_override": 5,
+   "mass_override": 5,
+   "target_body": 5,
+   "use_mass_center_override": 5
+  },
+  "PhysicsBodyMarkupList": {
+   "_class": 1
+  },
+  "PhysicsHullFile": {
+   "_class": 29,
+   "align_origin_x_type": 26,
+   "align_origin_y_type": 26,
+   "align_origin_z_type": 26,
+   "collision_prop": 5,
+   "collision_tags": 24,
+   "faceMergeAngle": 29,
+   "filename": 29,
+   "import_filter": 29,
+   "import_mode": 29,
+   "import_scale": 29,
+   "maxHullVertices": 29,
+   "name": 29,
+   "offset_angles": 29,
+   "offset_origin": 29,
+   "optimization_algorithm": 28,
+   "parent_bone": 29,
+   "recenter_on_parent_bone": 29,
+   "surface_prop": 29
+  },
+  "PhysicsHullFromRender": {
+   "_class": 26,
+   "collision_group": 1,
+   "collision_interact_as": 1,
+   "collision_interact_exclude": 1,
+   "collision_interact_with": 1,
+   "collision_prop": 11,
+   "collision_tags": 14,
+   "faceMergeAngle": 26,
+   "maxHullVertices": 26,
+   "parent_bone": 26,
+   "surface_prop": 26
+  },
+  "PhysicsJointConical": {
+   "_class": 25,
+   "anchor_angles": 25,
+   "anchor_origin": 25,
+   "angular_strength": 13,
+   "child_body": 25,
+   "collision_enabled": 25,
+   "disabled": 2,
+   "enable_swing_limit": 25,
+   "enable_twist_limit": 25,
+   "friction": 25,
+   "linear_strength": 13,
+   "max_twist_angle": 25,
+   "min_twist_angle": 25,
+   "parent_body": 25,
+   "swing_limit": 25,
+   "swing_offset_angle": 25
+  },
+  "PhysicsJointList": {
+   "_class": 9
+  },
+  "PhysicsJointRevolute": {
+   "_class": 12,
+   "anchor_angles": 12,
+   "anchor_origin": 12,
+   "angular_strength": 8,
+   "child_body": 12,
+   "collision_enabled": 12,
+   "enable_limit": 12,
+   "friction": 12,
+   "linear_strength": 8,
+   "max_angle": 12,
+   "min_angle": 12,
+   "parent_body": 12
+  },
+  "PhysicsShapeBox": {
+   "_class": 35,
+   "angles": 35,
+   "collision_prop": 5,
+   "collision_tags": 30,
+   "dimensions": 35,
+   "origin": 35,
+   "parent_bone": 35,
+   "surface_prop": 35
+  },
+  "PhysicsShapeCapsule": {
+   "_class": 49,
+   "collision_tags": 49,
+   "disabled": 4,
+   "parent_bone": 49,
+   "point0": 49,
+   "point1": 49,
+   "radius": 49,
+   "surface_prop": 49
+  },
+  "PhysicsShapeCylinder": {
+   "_class": 5,
+   "collision_tags": 5,
+   "parent_bone": 5,
+   "point0": 5,
+   "point1": 5,
+   "radius": 5,
+   "surface_prop": 5
+  },
+  "PhysicsShapeList": {
+   "_class": 73
+  },
+  "PhysicsShapeSphere": {
+   "_class": 6,
+   "center": 6,
+   "collision_tags": 6,
+   "parent_bone": 6,
+   "radius": 6,
+   "surface_prop": 6
+  },
+  "PoseParam": {
+   "_class": 4,
+   "name": 4,
+   "poseparam_loop": 4,
+   "poseparam_looping": 4,
+   "poseparam_max": 4,
+   "poseparam_min": 4
+  },
+  "PoseParamList": {
+   "_class": 7
+  },
+  "Prefab": {
+   "_class": 306,
+   "disabled": 2,
+   "name": 8,
+   "note": 1,
+   "target_file": 306
+  },
+  "PrefabList": {
+   "_class": 1
+  },
+  "RemoveBoneAndChildren": {
+   "_class": 6,
+   "bone_names": 6,
+   "note": 4
+  },
+  "RenameBone": {
+   "_class": 297,
+   "disabled": 34,
+   "name": 296,
+   "new_bone_name": 297,
+   "note": 34,
+   "original_bone_name": 297
+  },
+  "RenameStream": {
+   "_class": 4,
+   "from_name": 4,
+   "to_name": 4
+  },
+  "RenderMeshFile": {
+   "_class": 1944,
+   "align_origin_x_type": 1899,
+   "align_origin_y_type": 1899,
+   "align_origin_z_type": 1899,
+   "disabled": 3,
+   "filename": 1944,
+   "import_filter": 1944,
+   "import_rotation": 1943,
+   "import_scale": 1944,
+   "import_translation": 1899,
+   "name": 1813,
+   "note": 9,
+   "parent_bone": 1921
+  },
+  "RenderMeshList": {
+   "_class": 550
+  },
+  "RenderMeshMarkup": {
+   "_class": 35,
+   "calc_per_vertex_curvature": 35,
+   "cpu_access": 27,
+   "high_high_precision_texcoords": 35,
+   "material_search_path": 35,
+   "prefer_high_density_tris_in_uv_density_calc": 35,
+   "use_expensive_tangents": 35
+  },
+  "RenderPrimitiveBox": {
+   "_class": 4,
+   "angles": 4,
+   "dimensions": 4,
+   "invert": 4,
+   "material_name": 4,
+   "max_u": 4,
+   "max_v": 4,
+   "name": 4,
+   "origin": 4,
+   "parent_bone": 4,
+   "segments_x": 4,
+   "segments_y": 4,
+   "segments_z": 4
+  },
+  "RenderPrimitivePlane": {
+   "_class": 8,
+   "angles": 8,
+   "height": 8,
+   "material_name": 8,
+   "max_u": 8,
+   "max_v": 8,
+   "name": 8,
+   "origin": 8,
+   "parent_bone": 8,
+   "segments_x": 8,
+   "segments_y": 8,
+   "width": 8
+  },
+  "RenderPrimitiveSphere": {
+   "_class": 1,
+   "angles": 1,
+   "material_name": 1,
+   "max_u": 1,
+   "max_v": 1,
+   "name": 1,
+   "origin": 1,
+   "parent_bone": 1,
+   "radius": 1,
+   "segments_u": 1,
+   "segments_v": 1
+  },
+  "RootNode": {
+   "_class": 604,
+   "anim_graph_name": 604,
+   "base_model_name": 572,
+   "importer_notes": 29,
+   "model_archetype": 604,
+   "primary_associated_entity": 604
+  },
+  "SlopeTrace": {
+   "_class": 2,
+   "m_Settings": 2
+  },
+  "Softbody": {
+   "_class": 2,
+   "cloth_sleep_enabled": 2,
+   "stiffness_on_ragdoll": 2
+  },
+  "WeightList": {
+   "_class": 134,
+   "default_weight": 134,
+   "disabled": 2,
+   "master_morph_weight": 134,
+   "morph_weights": 134,
+   "name": 134,
+   "note": 6,
+   "weights": 134
+  },
+  "WeightListList": {
+   "_class": 8
+  }
+ },
+ "source": {
+  "commit": "372c601f8332149851410d88f36c0184bcb988f1",
+  "files_surveyed": 605,
+  "repo": "https://github.com/Facepunch/sbox-public",
+  "unparsed": 0
+ }
+}

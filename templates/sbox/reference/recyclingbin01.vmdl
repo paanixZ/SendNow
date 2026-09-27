@@ -1,0 +1,273 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						name = "RecyclingBin01_LOD0"
+						filename = "models/citizen_props/recyclingbin01.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 90.0, 0.0, 0.0 ]
+						import_scale = 40.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = true
+							exception_list = 
+							[
+								"RecyclingBin01_LOD0",
+							]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "RecyclingBin01_LOD1"
+						filename = "models/citizen_props/recyclingbin01.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 90.0, 0.0, 0.0 ]
+						import_scale = 40.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = true
+							exception_list = 
+							[
+								"RecyclingBin01_LOD1",
+							]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "RecyclingBin01_LOD2"
+						filename = "models/citizen_props/recyclingbin01.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 90.0, 0.0, 0.0 ]
+						import_scale = 40.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = true
+							exception_list = 
+							[
+								"RecyclingBin01_LOD2",
+							]
+						}
+					},
+				]
+			},
+			{
+				_class = "LODGroupList"
+				children = 
+				[
+					{
+						_class = "LODGroup"
+						name = "RecyclingBin01_LOD0"
+						switch_threshold = 0.0
+						meshes = 
+						[
+							"RecyclingBin01_LOD0",
+						]
+					},
+					{
+						_class = "LODGroup"
+						name = "RecyclingBin01_LOD1"
+						switch_threshold = 50.0
+						meshes = 
+						[
+							"RecyclingBin01_LOD1",
+						]
+					},
+					{
+						_class = "LODGroup"
+						name = "RecyclingBin01_LOD2"
+						switch_threshold = 100.0
+						meshes = 
+						[
+							"RecyclingBin01_LOD2",
+						]
+					},
+				]
+			},
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = [  ]
+						use_global_default = true
+						global_default_material = "models/citizen_props/recyclingbin01.vmat"
+					},
+				]
+			},
+			{
+				_class = "BreakPieceList"
+				children = 
+				[
+					{
+						_class = "BreakPieceEmbedded"
+						name = "RecyclingBin01Gib_LOD0"
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/recyclingbin01gibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 90.0, 0.0, 0.0 ]
+								import_scale = 40.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"RecyclingBin01Gib_LOD0",
+									]
+								}
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						collision_group = "default"
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						name = "RecyclingBin01LidGib_LOD0"
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/recyclingbin01gibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 90.0, 0.0, 0.0 ]
+								import_scale = 40.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"RecyclingBin01LidGib_LOD0",
+									]
+								}
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						collision_group = "default"
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						manual_mode = false
+						surface_prop_override = ""
+					},
+				]
+			},
+			{
+				_class = "GameDataList"
+				children = 
+				[
+					{
+						_class = "GenericGameData"
+						game_class = "ao_proxy_box"
+						game_keys = 
+						{
+							bonename = ""
+							dimensions = [ 5.81539, 8.83157, 5.06613 ]
+							offset_origin = [ 0.018879, 0.003804, 2.46695 ]
+							offset_angles = [ 0.0, 0.0, 0.0 ]
+						}
+					},
+					{
+						_class = "GenericGameData"
+						game_class = "ao_proxy_box"
+						game_keys = 
+						{
+							bonename = ""
+							dimensions = [ 7.69382, 10.8286, 0.882441 ]
+							offset_origin = [ 0.031148, -0.043122, 4.82526 ]
+							offset_angles = [ 0.0, 0.0, 0.0 ]
+						}
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsHullFile"
+						name = "recyclingbin01"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_prop = "default"
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 90.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "models/citizen_props/recyclingbin01.fbx"
+						import_scale = 40.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "SingleHull"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = 
+							[
+								"RecyclingBin01_LOD2",
+								"RecyclingBin01_LOD1",
+								"RecyclingBin01_LOD0",
+							]
+						}
+					},
+				]
+			},
+		]
+		model_archetype = "physics_prop_model"
+		primary_associated_entity = "prop_physics"
+		anim_graph_name = ""
+	}
+}

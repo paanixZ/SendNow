@@ -1,0 +1,26 @@
+{
+  "generated": "2026-09-27",
+  "license": "MIT (own work, see fixtures/README.md)",
+  "tools": {
+    "mdlc": {
+      "url": "https://github.com/MoRanYue/mdlc",
+      "commit": "a9ab0f75f6e35b89ea609a87bf06dc49adbaeb84"
+    },
+    "sourcepp": "2026.9.11"
+  },
+  "files": {
+    "materials/models/sourcebridge/crate.vmt": "fd7d10f36c62a3c2f7598405e58dee4ad9d36e8134a16f348169a62c39218124",
+    "materials/models/sourcebridge/crate.vtf": "8d20c46f0ba7e73d7c0e1eb965c58641f7b1f8ac2fef6793f05f22e8e0deeaf4",
+    "materials/models/sourcebridge/crate_dark.vmt": "71b8b285ce2e8b0bca1e54d74e6c7faeedef37608ceccb6330f0654a1d108bd7",
+    "materials/models/sourcebridge/crate_dark.vtf": "c1f517a0af00e29810757199ed74c8b7086c9b0273b95819708281ffb664f6d4",
+    "models/sourcebridge/crate.dx90.vtx": "28f0672062d9db2976be0e5d37dfcb829eb2e351d574be91114ccb37f10dfddc",
+    "models/sourcebridge/crate.mdl": "b4e732a7d06c5c2d19d497e3b92dfbac241f4dfc04151c0b7a4c0f53a0d245d1",
+    "models/sourcebridge/crate.phy": "9d56ab68d95303459c43ece51930ce6936ff5636b61bb8728335fddba4bb2228",
+    "models/sourcebridge/crate.vvd": "7def5d4f1da9f2ff9ffe6b4f19d31ea31571657d9893822c95f21a7407fcf5a4"
+  },
+  "packages": {
+    "sourcebridge_fixtures.gma": "a9e04702227433c7dea9b0b507b0811a50b2cdb4f5cdc11287fc85fab7465fe7",
+    "sourcebridge_fixtures_000.vpk": "b6a037cfc6ecb562395dd39df7ebca09e7b68abe0709082a55c79f3fdbc7d4dc",
+    "sourcebridge_fixtures_dir.vpk": "ac6aa9032aba342f7f086b28a6480418fa8e1c2ec91ec3ebdf12825b790916ee"
+  }
+}

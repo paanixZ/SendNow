@@ -1,0 +1,634 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						name = "OldOvenBody_LOD0"
+						filename = "models/citizen_props/oldoven.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 90.0, 0.0, 0.0 ]
+						import_scale = 40.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = true
+							exception_list = 
+							[
+								"OldOvenBody_LOD0",
+							]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "OldOvenBody_LOD1"
+						filename = "models/citizen_props/oldoven.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 90.0, 0.0, 0.0 ]
+						import_scale = 40.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = true
+							exception_list = 
+							[
+								"OldOvenBody_LOD1",
+							]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "OldOvenBody_LOD2"
+						filename = "models/citizen_props/oldoven.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 90.0, 0.0, 0.0 ]
+						import_scale = 40.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = true
+							exception_list = 
+							[
+								"OldOvenBody_LOD2",
+							]
+						}
+					},
+				]
+			},
+			{
+				_class = "LODGroupList"
+				children = 
+				[
+					{
+						_class = "LODGroup"
+						name = "OldOvenBody_LOD0"
+						switch_threshold = 0.0
+						meshes = 
+						[
+							"OldOvenBody_LOD0",
+						]
+					},
+					{
+						_class = "LODGroup"
+						name = "OldOvenBody_LOD1"
+						switch_threshold = 50.0
+						meshes = 
+						[
+							"OldOvenBody_LOD1",
+						]
+					},
+					{
+						_class = "LODGroup"
+						name = "OldOvenBody_LOD2"
+						switch_threshold = 100.0
+						meshes = 
+						[
+							"OldOvenBody_LOD2",
+						]
+					},
+				]
+			},
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = [  ]
+						use_global_default = true
+						global_default_material = "models/citizen_props/oldoven.vmat"
+					},
+				]
+			},
+			{
+				_class = "BreakPieceList"
+				children = 
+				[
+					{
+						_class = "BreakPieceEmbedded"
+						name = "OldOvenGib01_LOD0"
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/oldovengibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 90.0, 0.0, 0.0 ]
+								import_scale = 40.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"OldOvenGib01_LOD0",
+									]
+								}
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						name = "OldOvenGib02_LOD0"
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/oldovengibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 90.0, 0.0, 0.0 ]
+								import_scale = 40.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"OldOvenGib02_LOD0",
+									]
+								}
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						name = "OldOvenGib03_LOD0"
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/oldovengibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 90.0, 0.0, 0.0 ]
+								import_scale = 40.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"OldOvenGib03_LOD0",
+									]
+								}
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						name = "OldOvenGib04_LOD0"
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/oldovengibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 90.0, 0.0, 0.0 ]
+								import_scale = 40.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"OldOvenGib04_LOD0",
+									]
+								}
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						name = "OldOvenGib05_LOD0"
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/oldovengibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 90.0, 0.0, 0.0 ]
+								import_scale = 40.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"OldOvenGib05_LOD0",
+									]
+								}
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						name = "OldOvenGib06_LOD0"
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/oldovengibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 90.0, 0.0, 0.0 ]
+								import_scale = 40.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"OldOvenGib06_LOD0",
+									]
+								}
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						name = "OldOvenGib07_LOD0"
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/oldovengibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 90.0, 0.0, 0.0 ]
+								import_scale = 40.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"OldOvenGib07_LOD0",
+									]
+								}
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						name = "OldOvenGib08_LOD0"
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/oldovengibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 90.0, 0.0, 0.0 ]
+								import_scale = 40.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"OldOvenGib08_LOD0",
+									]
+								}
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						name = "OldOvenGib09_LOD0"
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/oldovengibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 90.0, 0.0, 0.0 ]
+								import_scale = 40.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"OldOvenGib09_LOD0",
+									]
+								}
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						name = "OldOvenGib10_LOD0"
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/oldovengibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 90.0, 0.0, 0.0 ]
+								import_scale = 40.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"OldOvenGib10_LOD0",
+									]
+								}
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+					{
+						_class = "BreakPieceEmbedded"
+						name = "OldOvenGib11_LOD0"
+						children = 
+						[
+							{
+								_class = "RenderMeshFile"
+								filename = "models/citizen_props/oldovengibs.fbx"
+								import_translation = [ 0.0, 0.0, 0.0 ]
+								import_rotation = [ 90.0, 0.0, 0.0 ]
+								import_scale = 40.0
+								align_origin_x_type = "None"
+								align_origin_y_type = "None"
+								align_origin_z_type = "None"
+								parent_bone = ""
+								import_filter = 
+								{
+									exclude_by_default = true
+									exception_list = 
+									[
+										"OldOvenGib11_LOD0",
+									]
+								}
+							},
+						]
+						placement_mode = "default"
+						placement_bone = ""
+						placement_attach = ""
+						is_ragdoll = false
+						offset = [ 0.0, 0.0, 0.0 ]
+						fadetime = 20.0
+						fade_min_dist = 0.0
+						fade_max_dist = 0.0
+						name_mode = "none"
+						random_spawn_chance = 1.0
+						is_essential_piece = false
+						collision_tags = "debris"
+						manual_mode = false
+						surface_prop_override = ""
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsHullFile"
+						name = "oldoven"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_tags = "solid"
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 90.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "models/citizen_props/oldoven.fbx"
+						import_scale = 40.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "SingleHull"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = 
+							[
+								"OldOvenBody_LOD2",
+								"OldOvenBody_LOD0",
+								"OldOvenBody_LOD1",
+							]
+						}
+					},
+				]
+			},
+			{
+				_class = "GameDataList"
+				children = 
+				[
+					{
+						_class = "GenericGameData"
+						game_class = "ao_proxy_box"
+						game_keys = 
+						{
+							bonename = ""
+							dimensions = [ 45.3825, 45.3242, 35.8775 ]
+							offset_origin = [ -0.353328, -0.312487, 20.6774 ]
+							offset_angles = [ 0.0, 0.0, 0.0 ]
+						}
+					},
+					{
+						_class = "GenericGameData"
+						game_class = "ao_proxy_box"
+						game_keys = 
+						{
+							bonename = ""
+							dimensions = [ 4.32002, 39.4458, 10.3629 ]
+							offset_origin = [ -20.8845, -0.189931, 41.9058 ]
+							offset_angles = [ 0.0, 0.0, 0.0 ]
+						}
+					},
+				]
+			},
+		]
+		model_archetype = "physics_prop_model"
+		primary_associated_entity = "prop_physics"
+		anim_graph_name = ""
+		base_model_name = ""
+	}
+}
