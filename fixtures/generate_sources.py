@@ -414,6 +414,9 @@ $collisionjoints "mannequin_phys.smd" {{
 
 
 if __name__ == "__main__":
+    import gen_vehicle
+
     crate()
     mannequin()
+    gen_vehicle.write_sources(SRC, write, smd, box_triangles, png)
     print(f"sources written to {SRC}")

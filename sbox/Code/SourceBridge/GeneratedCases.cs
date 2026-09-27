@@ -22,4 +22,9 @@ public static class GeneratedCases
 				new( "walk", 20, 0.666667f, new CharacterTest.BoneExpectation[] { new( "ValveBiped.Bip01_Head1", new Vector3( 0.0000f, 0.0000f, 66.6914f ) ), new( "ValveBiped.Bip01_L_Hand", new Vector3( -25.7526f, 0.0000f, 53.5615f ) ), new( "ValveBiped.Bip01_R_Hand", new Vector3( 25.7526f, -0.0000f, 53.5615f ) ), new( "ValveBiped.Bip01_L_Foot", new Vector3( -4.0000f, 2.7661f, 4.8309f ) ), new( "ValveBiped.Bip01_R_Foot", new Vector3( 4.0000f, -14.2665f, 5.8294f ) ) } ),
 			} ),
 	};
+
+	public static readonly IReadOnlyList<VehicleTest.Case> Vehicles = new VehicleTest.Case[]
+	{
+		new( "s1/prefabs/models/sourcebridge/sb_buggy_vehicle.prefab", 800.0f, 528.0f, 176.0f, 60.0f ),
+	};
 }

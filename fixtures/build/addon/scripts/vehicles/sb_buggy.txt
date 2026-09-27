@@ -1,0 +1,122 @@
+// SourceBridge test vehicle script (MIT). Values chosen for this fixture.
+"vehicle"
+{
+	"wheelsperaxle"	"2"
+	"body"
+	{
+		"countertorquefactor"	"1"
+		"massCenterOverride"	"0 0 -4"
+		"massoverride"		"800"		// kg
+		"addgravity"		"0.33"
+	}
+	"engine"
+	{
+		"horsepower"		"180"
+		"maxrpm"		"4000"
+		"maxspeed"		"30"		// mph
+		"maxReverseSpeed"	"10"		// mph
+		"autotransmission"	"1"
+		"axleratio"		"4.1"
+		"gear"			"3.0"
+		"gear"			"1.8"
+		"gear"			"1.1"
+		"shiftuprpm"		"3200"
+		"shiftdownrpm"		"1400"
+	}
+	"steering"
+	{
+		"degreesSlow"		"40"
+		"degreesFast"		"20"
+		"degreesBoost"		"12"
+		"steeringExponent"	"1.2"
+		"slowcarspeed"		"10"
+		"fastcarspeed"		"25"
+		"slowSteeringRate"	"3.0"
+		"fastSteeringRate"	"1.5"
+		"steeringRestRateSlow"	"3.0"
+		"steeringRestRateFast"	"1.5"
+		"turnThrottleReduceSlow" "0.01"
+		"turnThrottleReduceFast" "1.0"
+		"brakeSteeringRateFactor"	"4"
+		"throttleSteeringRestRateFactor"	"2"
+		"skidallowed"		"1"
+		"dustcloud"		"0"
+	}
+	"axle"
+	{
+		"wheel"
+		{
+			"radius"	"14.0"
+			"mass"		"60"
+			"inertia"	"0.5"
+			"damping"	"0"
+			"rotdamping"	"0.0"
+			"material"	"jeeptire"
+			"skidmaterial"	"slidingrubbertire"
+			"brakematerial"	"brakingrubbertire"
+		}
+		"suspension"
+		{
+			"springConstant"		"80"
+			"springDamping"			"0.7"
+			"stabilizerConstant"		"50"
+			"springDampingCompression"	"4"
+			"maxBodyForce"			"12"
+		}
+		"torquefactor"	"0.4"
+		"brakefactor"	"0.6"
+	}
+	"axle"
+	{
+		"wheel"
+		{
+			"radius"	"14.0"
+			"mass"		"60"
+			"inertia"	"0.5"
+			"damping"	"0"
+			"rotdamping"	"0.0"
+			"material"	"jeeptire"
+			"skidmaterial"	"slidingrubbertire"
+			"brakematerial"	"brakingrubbertire"
+		}
+		"suspension"
+		{
+			"springConstant"		"80"
+			"springDamping"			"0.7"
+			"stabilizerConstant"		"50"
+			"springDampingCompression"	"4"
+			"maxBodyForce"			"12"
+		}
+		"torquefactor"	"0.6"
+		"brakefactor"	"0.4"
+	}
+}
+
+"vehicle_sounds"
+{
+	"gear"
+	{
+		"max_speed"		"0.4"
+		"speed_approach_factor" "1.0"
+	}
+	"gear"
+	{
+		"max_speed"		"1.0"
+		"speed_approach_factor" "0.05"
+	}
+	"state"
+	{
+		"name"		"SS_START_IDLE"
+		"sound"		"SB_Buggy.EngineIdle"
+	}
+	"state"
+	{
+		"name"		"SS_IDLE"
+		"sound"		"SB_Buggy.EngineIdle"
+	}
+	"state"
+	{
+		"name"		"SS_GEAR_0"
+		"sound"		"SB_Buggy.EngineIdle"
+	}
+}

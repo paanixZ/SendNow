@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/sourcebridge/sb_buggy_paint"
+	"$surfaceprop" "metalvehicle"
+}

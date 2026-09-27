@@ -74,6 +74,28 @@ Gleiche Szene, gleicher Play-Lauf. Neben den Prop-Zeilen erscheinen:
 Wenn `character.animation` um ungefähr eine Vierteldrehung abweicht (Hände vertauschen x/y), dreht
 ModelDoc Wurzelknochen beim SMD-Import selbst; dann bitte die Zeilen schicken (E11).
 
-## Nachweis 3 (Auto)
+## Nachweis 3: Auto (`sb_buggy`, Standard-GMod-Fahrzeug)
 
-Folgt in Etappe 3 mit eigenem Testfall in derselben Szene.
+Gleiche Szene, gleicher Play-Lauf. Der Test steuert das Fahrzeug selbst (kein Spieler nötig):
+
+| Test | bestanden, wenn |
+|---|---|
+| `vehicle.wheels.grounded` | alle 4 Räder haben Bodenkontakt |
+| `vehicle.wheels.position` | jeder gerenderte Rad-Bone liegt waagerecht höchstens 1,5 Einheiten vom Rad (Modellausrichtung und Ruhepose stimmen) |
+| `vehicle.seat` | Augen-Anker liegt am Modell-Attachment `vehicle_driver_eyes` |
+| `vehicle.mass` | 800 kg (aus dem Script) |
+| `vehicle.sound` | Motorsound läuft |
+| `vehicle.ride_height` | unterste Radkante nahe Boden (± 6) |
+| `vehicle.drive` | 4 s Vollgas: > 150 Einheiten vorwärts, Spitze ≤ 1,1 × 528 in/s (30 mph) |
+| `vehicle.brake` | Vollbremsung: Stillstand innerhalb 5 s (Bremsweg wird ausgegeben) |
+| `vehicle.steer.left` / `.right` | 3 s eingeschlagen: Gierwinkel > 25° nach links bzw. rechts |
+| `vehicle.reverse` | 3 s rückwärts: > 60 Einheiten, Spitze ≤ 1,1 × 176 in/s (10 mph) |
+| `vehicle.enter_exit` | Einsteigen setzt auf den Sitz, Aussteigen neben das Fahrzeug |
+
+Selbst fahren: Prefab `s1/prefabs/models/sourcebridge/sb_buggy_vehicle.prefab` in eine Szene ziehen,
+`VehicleSeat.Enter(<Spieler>)` aufrufen (z. B. per Use-Taste im eigenen Controller); dann W/S/A/D und
+Leertaste (Bremse). Mehrspieler ist nicht umgesetzt.
+
+Eigene GMod-Fahrzeuge: `sourcebridge inspect --source addon.gma` listet gefundene Fahrzeuge,
+`sourcebridge vehicle --source addon.gma --source garrysmod_dir.vpk --id <id> --project out --sbox-assets sbox\Assets`
+konvertiert eins. Fahrzeuge aus Frameworks (simfphys, LVS …) werden erkannt, aber nicht konvertiert.

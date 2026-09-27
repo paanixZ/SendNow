@@ -23,14 +23,16 @@ import uuid
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from ...formats.anim import decode_animation
+from ...formats.binary import FormatError
 from ...formats.mdl import StudioModel
-from ...geometry import ModelGeometry, extract
+from ...geometry import ModelGeometry, bake_pose, extract
 from ...journal import Journal
 from ...materials import alpha_as_gray, build_vmat, decode_vtf, encode_png, has_meaningful_alpha
 from ...resolve import ResolvedModel
 from ...safety import normalize_game_path
-from ...transform import bone_world_matrices, mat34_apply
-from .character import attachment_nodes, build_animations, hitbox_nodes, joint_nodes
+from ...transform import bone_world_matrices, mat34_apply, pose_world, quat_to_radian_euler
+from .character import angle_between, attachment_nodes, build_animations, hitbox_nodes, joint_nodes
 from .kv3 import dumps_modeldoc
 
 ASSET_ROOT = "s1"
@@ -51,6 +53,10 @@ class SboxModelOutput:
     mesh_names: list[str] = field(default_factory=list)
     mesh_files: dict[tuple[int, int, int], str] = field(default_factory=dict)  # (bodypart, model, lod)
     ragdoll_prefab_path: str | None = None
+    geometry: dict[tuple[int, int, int], ModelGeometry] = field(default_factory=dict)  # what was written
+    rest_pose: list | None = None  # engine rest pose baked into the bind pose, if any
+    skeleton: list | None = None  # (pos, RadianEuler) per bone written as SMD bind pose
+    extra: dict = field(default_factory=dict)  # outputs added by extensions (vehicle prefab, sounds)
     sequences: list[dict] = field(default_factory=list)
     sequence_checks: list = field(default_factory=list)  # character.SequenceCheck
     animated: bool = False
@@ -71,16 +77,20 @@ def _material_key(tex: str) -> str:
     return tex.replace("\\", "/").lstrip("/").lower()
 
 
-def write_smd_mesh(mdl: StudioModel, geo: ModelGeometry, material_names: list[str]) -> str:
+def _skeleton_lines(mdl: StudioModel, skeleton=None) -> list[str]:
     out = ["version 1", "nodes"]
     for b in mdl.bones:
         out.append(f'{b.index} "{b.name}" {b.parent}')
     out += ["end", "skeleton", "time 0"]
     for b in mdl.bones:
-        out.append(
-            f"{b.index} {_f(b.pos[0])} {_f(b.pos[1])} {_f(b.pos[2])} {_f(b.rot[0])} {_f(b.rot[1])} {_f(b.rot[2])}"
-        )
+        pos, rot = skeleton[b.index] if skeleton else (b.pos, b.rot)
+        out.append(f"{b.index} {_f(pos[0])} {_f(pos[1])} {_f(pos[2])} {_f(rot[0])} {_f(rot[1])} {_f(rot[2])}")
     out += ["end", "triangles"]
+    return out
+
+
+def write_smd_mesh(mdl: StudioModel, geo: ModelGeometry, material_names: list[str], skeleton=None) -> str:
+    out = _skeleton_lines(mdl, skeleton)
     for mesh in geo.meshes:
         mat = material_names[mesh.material_index] if mesh.material_index < len(material_names) else "missing"
         for tri in mesh.triangles:
@@ -97,16 +107,8 @@ def write_smd_mesh(mdl: StudioModel, geo: ModelGeometry, material_names: list[st
     return "\n".join(out) + "\n"
 
 
-def write_smd_hull(mdl: StudioModel, bone: int, points, triangles) -> str:
-    out = ["version 1", "nodes"]
-    for b in mdl.bones:
-        out.append(f'{b.index} "{b.name}" {b.parent}')
-    out += ["end", "skeleton", "time 0"]
-    for b in mdl.bones:
-        out.append(
-            f"{b.index} {_f(b.pos[0])} {_f(b.pos[1])} {_f(b.pos[2])} {_f(b.rot[0])} {_f(b.rot[1])} {_f(b.rot[2])}"
-        )
-    out += ["end", "triangles"]
+def write_smd_hull(mdl: StudioModel, bone: int, points, triangles, skeleton=None) -> str:
+    out = _skeleton_lines(mdl, skeleton)
     for tri in triangles:
         pa, pb, pc = (points[i] for i in tri)
         n = _normal(pa, pb, pc)
@@ -132,6 +134,45 @@ def _f(x: float) -> str:
     return "0.000000" if s == "-0.000000" else s
 
 
+def engine_rest_pose(res: ResolvedModel, journal: Journal):
+    """The pose the Source engine shows for a model that is not really animated.
+
+    Non-static models always play a sequence; for a model whose sequences all have a single frame
+    that frame (including studiomdl's root default rotation) is what players see, so it becomes the
+    exported bind pose. Returns None when the bind pose already is that pose, for $staticprop
+    models (geometry rotated at compile time) and for animated models (animations are exported).
+    """
+    mdl = res.mdl
+    if mdl.is_static_prop or not mdl.sequences or not mdl.anim_descs:
+        return None
+    if any(a.num_frames > 1 for a in mdl.anim_descs):
+        return None
+    seq = mdl.sequences[0]
+    if not seq.anim_indices or seq.anim_indices[0] >= len(mdl.anim_descs):
+        return None
+    try:
+        anim = decode_animation(mdl, res.files[res.path], mdl.anim_descs[seq.anim_indices[0]])
+    except FormatError as exc:
+        journal.error(res.path, "rest pose", f"default sequence could not be decoded: {exc}")
+        return None
+    pose = anim.frames[0]
+    moved = [
+        mdl.bones[i].name
+        for i, (p, q) in enumerate(pose)
+        if max(abs(a - b) for a, b in zip(p, mdl.bones[i].pos, strict=True)) > 1e-3
+        or angle_between(q, mdl.bones[i].quat) > 1e-4
+    ]
+    if not moved:
+        return None
+    journal.converted(
+        res.path,
+        "rest pose",
+        f"the engine shows sequence '{seq.label}' frame 0, not the bind pose (bones differing: "
+        f"{', '.join(moved[:6])}); baked into the exported bind pose so the model looks as in Source",
+    )
+    return pose
+
+
 def build_sbox_model(res: ResolvedModel, journal: Journal) -> SboxModelOutput:
     mdl, vvd, vtx = res.mdl, res.vvd, res.vtx
     if mdl is None or vvd is None or vtx is None:
@@ -142,6 +183,11 @@ def build_sbox_model(res: ResolvedModel, journal: Journal) -> SboxModelOutput:
     vmdl_path = f"{ASSET_ROOT}/{stem}.vmdl"
     subj = res.path
     out = SboxModelOutput(vmdl_path, None)
+    out.rest_pose = engine_rest_pose(res, journal)
+    bind = bone_world_matrices(mdl.bones)
+    pose_w = pose_world(mdl.bones, out.rest_pose) if out.rest_pose else None
+    if out.rest_pose:
+        out.skeleton = [(p, quat_to_radian_euler(q)) for p, q in out.rest_pose]
 
     # ---- materials ----
     mat_names = [_safe_name(t) for t in mdl.textures]
@@ -186,9 +232,12 @@ def build_sbox_model(res: ResolvedModel, journal: Journal) -> SboxModelOutput:
                 journal.error(subj, f"{geo.body_part}/{geo.model_name} lod{lod}", geo.error)
             if not geo.meshes:
                 continue
+            if pose_w is not None:
+                geo = bake_pose(geo, bind, pose_w)
+            out.geometry[(geo.body_part_index, geo.model_index, lod)] = geo
             mesh_name = f"{name}_{_safe_name(geo.body_part)}_{_safe_name(geo.model_name)}_lod{lod}"
             smd_rel = f"{model_dir}/{mesh_name}.smd"
-            out.add(smd_rel, write_smd_mesh(mdl, geo, mat_names), "render-mesh")
+            out.add(smd_rel, write_smd_mesh(mdl, geo, mat_names, out.skeleton), "render-mesh")
             out.mesh_names.append(mesh_name)
             out.mesh_files[(geo.body_part_index, geo.model_index, lod)] = smd_rel
             render_nodes.append(
@@ -282,7 +331,7 @@ def build_sbox_model(res: ResolvedModel, journal: Journal) -> SboxModelOutput:
     )
 
     # ---- skeleton features: animations, attachments, hitboxes ----
-    trivial = len(mdl.bones) <= 1 and all(a.num_frames <= 1 for a in mdl.anim_descs)
+    trivial = all(a.num_frames <= 1 for a in mdl.anim_descs)
     if mdl.anim_descs and not trivial:
         ani_path = normalize_game_path(mdl.anim_block_name) if mdl.anim_block_name else None
         cres = build_animations(
@@ -303,7 +352,8 @@ def build_sbox_model(res: ResolvedModel, journal: Journal) -> SboxModelOutput:
         journal.preserved(
             subj,
             "sequences",
-            "single-frame rest sequence(s) of a single-bone model are implied by the bind pose",
+            "only single-frame sequences: the pose they show is the exported rest pose"
+            + (" (baked, see 'rest pose')" if out.rest_pose else ""),
         )
     children += attachment_nodes(mdl, journal, subj)
     children += hitbox_nodes(mdl, journal, subj)
@@ -377,18 +427,21 @@ def _texture_outputs(res, vtf_path, out, journal, subject, cache, normal=False) 
     return roles
 
 
-def _bone_render_boxes(res: ResolvedModel) -> dict[int, tuple[list[float], list[float]]]:
-    """Model-space AABB of the LOD0 vertices whose strongest weight is on each bone."""
+def _bone_render_boxes(out: SboxModelOutput) -> dict[int, tuple[list[float], list[float]]]:
+    """Model-space AABB of the written LOD0 vertices per strongest bone; key -1 is the whole model."""
     boxes: dict[int, tuple[list[float], list[float]]] = {}
-    for geo in extract(res.mdl, res.vvd, res.vtx, 0):
+    for (_bp, _m, lod), geo in out.geometry.items():
+        if lod != 0:
+            continue
         used = {i for m in geo.meshes for t in m.triangles for i in t}
         for i in used:
             v = geo.vertices[i]
             b = v.bones[max(range(len(v.weights)), key=lambda k: v.weights[k])]
-            lo, hi = boxes.setdefault(b, ([math.inf] * 3, [-math.inf] * 3))
-            for k in range(3):
-                lo[k] = min(lo[k], v.position[k])
-                hi[k] = max(hi[k], v.position[k])
+            for key in (b, -1):
+                lo, hi = boxes.setdefault(key, ([math.inf] * 3, [-math.inf] * 3))
+                for k in range(3):
+                    lo[k] = min(lo[k], v.position[k])
+                    hi[k] = max(hi[k], v.position[k])
     return boxes
 
 
@@ -415,24 +468,29 @@ def _physics(
     world = bone_world_matrices(mdl.bones)
     bone_by_name = {b.name.lower(): b.index for b in mdl.bones}
     ragdoll = len(phy.solids) > 1
-    render_boxes = _bone_render_boxes(res) if ragdoll else {}
+    if out.rest_pose:
+        world = pose_world(mdl.bones, out.rest_pose)
+    detect = ragdoll or not mdl.is_static_prop
+    render_boxes = _bone_render_boxes(out) if detect else {}
     spaces = {
         "bone-local": lambda b, p: mat34_apply(world[b], p),
         "model": lambda b, p: p,
         "model rotated by studiomdl default Rz(90)": lambda b, p: (p[1], -p[0], p[2]),
     }
     convert = spaces["model"]
-    if ragdoll:
+    if detect:
         # One decision for the whole model: every solid of a .phy uses the same convention.
         totals = dict.fromkeys(spaces, 0.0)
         compared = 0
         for solid in phy.solids:
             b = bone_by_name.get(phy.solid_info(solid.index).get("name", "").lower())
+            if not ragdoll:
+                b = -1 if b is None else b
             if b is None or b not in render_boxes:
                 continue
             pts = [p for h in solid.hulls for p in h.points]
             for k, f in spaces.items():
-                totals[k] += _iou(_aabb([f(b, p) for p in pts]), render_boxes[b])
+                totals[k] += _iou(_aabb([f(max(b, 0), p) for p in pts]), render_boxes[b])
             compared += 1
         if compared == 0:
             chosen = "bone-local"
@@ -462,7 +520,7 @@ def _physics(
             pts = [convert(bone, p) for p in hull.points]
             hull_name = f"{name}_hull{hull_i}"
             rel = f"{model_dir}/{hull_name}.smd"
-            out.add(rel, write_smd_hull(mdl, bone, pts, hull.triangles), "collision-hull")
+            out.add(rel, write_smd_hull(mdl, bone, pts, hull.triangles, out.skeleton), "collision-hull")
             nodes.append(
                 {
                     "_class": "PhysicsHullFile",

@@ -11,6 +11,7 @@
     "sourcepp": "2026.9.11"
   },
   "files": {
+    "lua/autorun/sb_buggy.lua": "0b367936c2cee0aaf5c90c040515ee03f52931646f22a929abf237c7f45e0fd5",
     "materials/models/sourcebridge/crate.vmt": "fd7d10f36c62a3c2f7598405e58dee4ad9d36e8134a16f348169a62c39218124",
     "materials/models/sourcebridge/crate.vtf": "8d20c46f0ba7e73d7c0e1eb965c58641f7b1f8ac2fef6793f05f22e8e0deeaf4",
     "materials/models/sourcebridge/crate_dark.vmt": "71b8b285ce2e8b0bca1e54d74e6c7faeedef37608ceccb6330f0654a1d108bd7",
@@ -19,6 +20,10 @@
     "materials/models/sourcebridge/mannequin_helmet.vtf": "c664f6752ae0d7220cf218e854b869915ff8f66d4266b1cb11f6639b79d5acef",
     "materials/models/sourcebridge/mannequin_skin.vmt": "fa0af9eadf3a50086a77e251ca48b8cc17b4f8c7072e1ac2d8fd97379f0c6fa7",
     "materials/models/sourcebridge/mannequin_skin.vtf": "cef38fb9ec5cd5b11c9102d659dbf3ef21ee3f0afb634868ed58cc1e44fdd3b8",
+    "materials/models/sourcebridge/sb_buggy_paint.vmt": "a342ff67c21a8f82eb6b1d88999c068ddb559b8a946529122c75f2762d6aa5f6",
+    "materials/models/sourcebridge/sb_buggy_paint.vtf": "52d1d8f4c5c10c77e9aafa2afae15062099c3e8d2b3ea2848b9ae92493eea233",
+    "materials/models/sourcebridge/sb_buggy_tire.vmt": "c0174652e2e4e4146a8681cf7b6715d8dccc53ba0c815decaceda6c66bac12e0",
+    "materials/models/sourcebridge/sb_buggy_tire.vtf": "d41ffe4c3ca34b972e34ff3a3e048363492fd589d9c4751466f6f7cf4c1f2ff3",
     "models/sourcebridge/crate.dx90.vtx": "e58e178a836659aa5b75e93af9d4c0a162d0714d247f2b77b0137e1041c035f0",
     "models/sourcebridge/crate.mdl": "d33a608b27f7a552be9ba403694871ef5029cb9c290c744c8d17c4258219ec34",
     "models/sourcebridge/crate.phy": "9d56ab68d95303459c43ece51930ce6936ff5636b61bb8728335fddba4bb2228",
@@ -26,11 +31,17 @@
     "models/sourcebridge/mannequin.dx90.vtx": "27d13ac70f58758ef2156098c1677eb277b0d15e356ded6febfa319004171ef4",
     "models/sourcebridge/mannequin.mdl": "7cb0ac4cdee1688b773a9be2a3f9e588e64b95709f269bc80844f53fb37b8df3",
     "models/sourcebridge/mannequin.phy": "bae8841dc7863f9c00fad08a9f10ae92c5b98122cfa453a6f796dba633f43203",
-    "models/sourcebridge/mannequin.vvd": "6b85d26a78f0d4bb970c2eaa4bfe463b64dcdb60d0e6a5e2810f238965337c36"
+    "models/sourcebridge/mannequin.vvd": "6b85d26a78f0d4bb970c2eaa4bfe463b64dcdb60d0e6a5e2810f238965337c36",
+    "models/sourcebridge/sb_buggy.dx90.vtx": "f4f24fc6e7df2018fabdfb74e82013f195556a0b6dc31226efdee6f51b8579a3",
+    "models/sourcebridge/sb_buggy.mdl": "aedab61960040d78c94f4a1bb04d6c8999baf1a20fa60f1ae0d8cd303e65466e",
+    "models/sourcebridge/sb_buggy.phy": "73f4b911e0a6758153df13a4c18ef3c6d6a1efa578d00739fed72e2d6d463058",
+    "models/sourcebridge/sb_buggy.vvd": "b28d399e2ccc95255342ee2e70df7bbf0b206cc7323356af977b322b0051a2f5",
+    "scripts/vehicles/sb_buggy.txt": "9b3f04bebacd1d427051b0669ab05cc845f59306f4c98975c4fec6a0ceb7791b",
+    "sound/vehicles/sb_buggy/engine_idle.wav": "e866666872aaff628d5916f7c94734b04b5a7b75014ca9d423b238d1f0926d9c"
   },
   "packages": {
-    "sourcebridge_fixtures.gma": "716444edb7eb5b5d2d6b94f7ff711f348287f8a12e51e4dd646cf8b245f1d6ab",
-    "sourcebridge_fixtures_000.vpk": "130ee8d61548e71110fe7b677027dfbfc650adef3a88512238ff0eae69aaf19d",
-    "sourcebridge_fixtures_dir.vpk": "ee9366595c0eff903958a0a4bb82403ed145a0931a1a60daea3aa20f0e7ed861"
+    "sourcebridge_fixtures.gma": "0ea7a179126c45ead59d64f4dcd98def8c40d3cec39e3712b6117cad6e867d21",
+    "sourcebridge_fixtures_000.vpk": "fde441f78c93ba0ca14efe2a7b216df37f97352f6a22511b2bd0711dd244b0a0",
+    "sourcebridge_fixtures_dir.vpk": "104daf741e25dbc4c89deebc5de7bbbbe0aa7b183c438cd0de25d353faa652a5"
   }
 }

@@ -22,12 +22,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from sourcebridge.pipeline import import_model  # noqa: E402
+from sourcebridge.pipeline import import_model, import_vehicle  # noqa: E402
 from sourcebridge.sources import GmaSource, Mount  # noqa: E402
 
 SBOX = ROOT / "sbox"
 GMA = ROOT / "fixtures" / "build" / "sourcebridge_fixtures.gma"
 MODELS = ["models/sourcebridge/crate.mdl", "models/sourcebridge/mannequin.mdl"]
+VEHICLES = ["sb_buggy"]
+GROUND_SCALE = 120  # the template plane is 500x500; the drive test needs room
 
 
 def guid(seed: str) -> str:
@@ -38,6 +40,8 @@ def convert(project: Path) -> list[dict]:
     docs = []
     for model in MODELS:
         docs.append(import_model(Mount([GmaSource(GMA)]), model, project, SBOX / "Assets"))
+    for vid in VEHICLES:
+        docs.append(import_vehicle(Mount([GmaSource(GMA)]), vid, project, SBOX / "Assets"))
     return docs
 
 
@@ -88,6 +92,21 @@ def cases_cs(docs: list[dict]) -> str:
                 f'\t\t\t\tnew( "{c["sequence"]}", {c["frame"]}, {c["time"]:.6f}f, new CharacterTest.BoneExpectation[] {{ {bones} }} ),'
             )
         lines.append("\t\t\t} ),")
+    lines += ["\t};", ""]
+    lines += [
+        "\tpublic static readonly IReadOnlyList<VehicleTest.Case> Vehicles = new VehicleTest.Case[]",
+        "\t{",
+    ]
+    for d in docs:
+        v = d.get("vehicle")
+        if not v:
+            continue
+        mass = v["body"]["mass"]["value"] or (d.get("physics") or {}).get("total_mass") or 0
+        lines.append(
+            f'\t\tnew( "{d["outputs"]["extra"]["vehicle_prefab"]}", {float(mass):.1f}f, '
+            f"{v['engine']['max_speed']['value']:.1f}f, {v['engine']['max_reverse_speed']['value']:.1f}f, "
+            f"{v['track_width']['value']:.1f}f ),"
+        )
     lines += ["\t};", "}", ""]
     return "\n".join(lines)
 
@@ -96,6 +115,9 @@ def scene() -> str:
     tpl = json.loads((ROOT / "templates/sbox/reference/minimal.scene").read_text())
     s = copy.deepcopy(tpl)
     s["GameObjects"] = [g for g in s["GameObjects"] if not g.get("Name", "").startswith("Cube")]
+    for g in s["GameObjects"]:
+        if g.get("Name") == "Plane":
+            g["Scale"] = f"{GROUND_SCALE},{GROUND_SCALE},{GROUND_SCALE}"
     s["__guid"] = guid("scene")
     runner = copy.deepcopy(next(g for g in tpl["GameObjects"] if g.get("Name") == "Plane"))
     runner.update(
@@ -123,6 +145,13 @@ def scene() -> str:
                     "PositionTolerance": 1.0,
                     "GroundTolerance": 3.0,
                     "RagdollTimeout": 10,
+                },
+                {
+                    "__type": "SourceBridge.Tests.VehicleTest",
+                    "__guid": guid("vehicletest"),
+                    "__enabled": True,
+                    "Flags": 0,
+                    "WheelTolerance": 1.5,
                 },
             ],
             "Children": [],

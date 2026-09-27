@@ -24,7 +24,7 @@ from .resolve import ResolvedModel, Resolver
 from .safety import safe_join
 from .sources import Mount
 from .targets.sbox.kv3 import parse_kv3
-from .targets.sbox.model import SboxModelOutput, build_sbox_model
+from .targets.sbox.model import ASSET_ROOT, SboxModelOutput, build_sbox_model
 from .transform import TRANSFORMS
 
 SCHEMA = "sourcebridge.asset"
@@ -169,16 +169,13 @@ def verify_outputs(res: ResolvedModel, out: SboxModelOutput) -> list[dict]:
     checks = []
     files = {f.path: f for f in out.files}
 
-    # 1. every render SMD re-parses with an independent SMD reader and matches the source mesh
-    from .geometry import extract
-
+    # 1. every render SMD re-parses with an independent SMD reader and matches the written mesh
     ok = True
     detail = []
-    for lod in range(max(1, res.vtx.num_lods)):
-        for geo in extract(res.mdl, res.vvd, res.vtx, lod):
-            if not geo.meshes:
-                continue
-            name = out.mesh_files.get((geo.body_part_index, geo.model_index, lod))
+    for key, geo in sorted(out.geometry.items()):
+        lod = key[2]
+        if geo.meshes:
+            name = out.mesh_files.get(key)
             f = files.get(name) if name else None
             if f is None:
                 ok = False
@@ -213,7 +210,7 @@ def verify_outputs(res: ResolvedModel, out: SboxModelOutput) -> list[dict]:
     # 2. collision hulls re-parse and stay inside the render bounds (+1 inch tolerance)
     if res.phy is not None:
         hull_files = [f for f in out.files if f.role == "collision-hull"]
-        geo0 = [g for g in extract(res.mdl, res.vvd, res.vtx, 0) if g.meshes]
+        geo0 = [g for k, g in out.geometry.items() if k[2] == 0 and g.meshes]
         lo = [min(g.bounds()[0][k] for g in geo0) for k in range(3)]
         hi = [max(g.bounds()[1][k] for g in geo0) for k in range(3)]
         ok = bool(hull_files)
@@ -309,11 +306,15 @@ def import_model(
     project: Path,
     sbox_assets: Path | None = None,
     provenance: dict | None = None,
+    extension=None,
+    has_vehicle_script: bool = False,
 ) -> dict:
+    """Convert one model. `extension(res, out, doc, journal, resolver)` may add outputs (vehicles)."""
     started = time.time()
     project = Path(project)
     journal = Journal()
-    res = Resolver(mount).resolve_model(model_path)
+    resolver = Resolver(mount)
+    res = resolver.resolve_model(model_path)
     aid = asset_id(res.path)
     doc: dict = {
         "schema": SCHEMA,
@@ -339,15 +340,13 @@ def import_model(
         if desc.get("kind") == "gma" and doc["provenance"]["author"] is None:
             doc["provenance"]["author"] = desc.get("author") or None
             doc["provenance"]["gma"] = {k: desc.get(k) for k in ("title", "steam_id", "metadata", "crc_ok")}
-    doc["originals"] = archive_originals(res, project)
-
     status = {"progress": "failed", "quality": "unknown", "publication": "not cleared"}
     if res.mdl is None:
         doc["status"] = status
         doc["journal"] = journal.to_list()
-        return _finish(project, doc, started)
+        return _finish(project, doc, started, res)
 
-    cls = classify(res.mdl)
+    cls = classify(res.mdl, has_vehicle_script)
     doc["classification"] = asdict(cls)
     doc["kind"] = cls.kind
     doc["model"] = model_summary(res)
@@ -376,9 +375,11 @@ def import_model(
         status["quality"] = "incomplete input"
         doc["status"] = status
         doc["journal"] = journal.to_list()
-        return _finish(project, doc, started)
+        return _finish(project, doc, started, res)
 
     out = build_sbox_model(res, journal)
+    if extension is not None:
+        extension(res, out, doc, journal, resolver)
     target_root = Path(sbox_assets) if sbox_assets else project / "sbox" / "Assets"
     written = []
     for f in out.files:
@@ -402,6 +403,7 @@ def import_model(
         "ragdoll_prefab": out.ragdoll_prefab_path,
         "sequences": out.sequences,
         "sequence_checks": [asdict(c) for c in out.sequence_checks],
+        "extra": out.extra,
         "files": written,
     }
     doc["checks"] = checks
@@ -414,15 +416,114 @@ def import_model(
         else ("incomplete input" if missing else "internal checks passed; target test not run")
     )
     doc["status"] = status
-    return _finish(project, doc, started)
+    return _finish(project, doc, started, res)
 
 
-def _finish(project: Path, doc: dict, started: float) -> dict:
+def _finish(project: Path, doc: dict, started: float, res: ResolvedModel) -> dict:
     from .report import render_markdown
 
+    doc["dependencies"] = [asdict(d) for d in res.deps]
+    doc["originals"] = archive_originals(res, project)
     doc["duration_s"] = round(time.time() - started, 3)
     (project / "assets").mkdir(parents=True, exist_ok=True)
     (project / "reports").mkdir(parents=True, exist_ok=True)
     (project / "assets" / f"{doc['id']}.json").write_text(json.dumps(doc, indent=2, default=list) + "\n")
     (project / "reports" / f"{doc['id']}.md").write_text(render_markdown(doc))
     return doc
+
+
+def import_vehicle(
+    mount: Mount,
+    vehicle_id: str,
+    project: Path,
+    sbox_assets: Path | None = None,
+) -> dict:
+    """Convert a Garry's Mod vehicle: definition (Lua, static) + script + model + sounds -> s&box."""
+    from .targets.sbox.vehicle import build_vehicle_prefab, sound_event
+    from .transform import bone_world_matrices, mat34_apply, pose_world
+    from .vehicles import build_vehicle_doc, parse_script, scan_addon
+
+    scan = scan_addon(mount)
+    matches = [v for v in scan["vehicles"] if v.id == vehicle_id]
+    if not matches:
+        known = ", ".join(sorted(v.id for v in scan["vehicles"])) or "none"
+        raise ValueError(f"vehicle '{vehicle_id}' is not defined in the given sources (found: {known})")
+    defn = matches[0]
+    if defn.model is None:
+        raise ValueError(f"vehicle '{vehicle_id}' has no static Model path ({defn.dynamic})")
+
+    def extend(res, out, doc, journal, resolver):
+        mdl = res.mdl
+        subject = f"vehicle {vehicle_id}"
+        resolver._fetch(res, "vehicle-definition", defn.source_file, "(input)")
+        if defn.script is None:
+            journal.error(subject, "vehicle script", "definition has no static KeyValues.vehiclescript")
+            return
+        raw = resolver._fetch(res, "vehicle-script", defn.script, defn.source_file)
+        if raw is None:
+            journal.error(subject, "vehicle script", f"{defn.script} not found")
+            return
+        script = parse_script(raw.decode("utf-8", "replace"), defn.script)
+        world = pose_world(mdl.bones, out.rest_pose) if out.rest_pose else bone_world_matrices(mdl.bones)
+        attachments = {
+            a.name.lower(): mat34_apply(world[a.bone], (a.local[3], a.local[7], a.local[11]))
+            for a in mdl.attachments
+        }
+        wheel_bones = {a.name.lower(): mdl.bones[a.bone].name for a in mdl.attachments}
+        vdoc = build_vehicle_doc(defn, defn.script, script, attachments, scan["sounds"], res.phy is not None)
+        for fw, files in scan["frameworks"].items():
+            vdoc["problems"].append(
+                f"framework '{fw}' detected in {', '.join(files[:3])}: not converted by this adapter"
+            )
+        # sounds: copy the files of the idle/engine state, create an s&box sound event
+        sound_path = None
+        states = {s["state"]: s for s in vdoc["sounds"]["states"]}
+        engine_state = states.get("SS_IDLE") or states.get("SS_GEAR_0") or states.get("SS_START_IDLE")
+        if engine_state and engine_state.get("resolved"):
+            info = engine_state["resolved"]
+            vsnd = []
+            for f in info["files"]:
+                game_path = "sound/" + f.replace("\\", "/").lstrip("/")
+                data = resolver._fetch(res, "sound", game_path, info["source"])
+                if data is None:
+                    continue
+                rel = f"{ASSET_ROOT}/{game_path}"
+                out.add(rel, data, "sound")
+                vsnd.append(rel.rsplit(".", 1)[0] + ".vsnd")
+            if vsnd:
+                ev_rel = f"{ASSET_ROOT}/sounds/{vehicle_id}_engine.sound"
+                out.add(ev_rel, sound_event(vsnd, info.get("volume"), info.get("level")), "sound-event")
+                sound_path = ev_rel
+                journal.converted(
+                    subject,
+                    "engine sound",
+                    f"{engine_state['sound']} ({', '.join(info['files'])}) -> sound event; pitch follows speed (recreated)",
+                )
+        else:
+            journal.lost(subject, "engine sound", "no resolvable idle/gear sound in vehicle_sounds")
+        for st in vdoc["sounds"]["states"]:
+            if st is not engine_state and st["state"] not in ("SS_IDLE", "SS_GEAR_0", "SS_START_IDLE"):
+                journal.lost(subject, f"sound state {st['state']}", f"{st['sound']} not wired up yet")
+        mass = _v(vdoc["body"].get("mass")) or (res.phy.total_mass if res.phy else None)
+        prefab_rel, prefab = build_vehicle_prefab(
+            vdoc, out.vmdl_path, _safe_name(res.path), mass, wheel_bones, sound_path, journal, subject
+        )
+        out.add(prefab_rel, prefab, "prefab")
+        out.extra["vehicle_prefab"] = prefab_rel
+        out.extra["vehicle_sound"] = sound_path
+        for p in vdoc["problems"]:
+            journal.error(subject, "vehicle", p)
+        doc["vehicle"] = vdoc
+        doc["kind"] = "vehicle"
+
+    return import_model(mount, defn.model, project, sbox_assets, extension=extend, has_vehicle_script=True)
+
+
+def _v(d):
+    return d.get("value") if d else None
+
+
+def _safe_name(path: str) -> str:
+    from .targets.sbox.model import _safe_name as sn
+
+    return sn(path[:-4] if path.endswith(".mdl") else path)

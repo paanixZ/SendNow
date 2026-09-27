@@ -73,3 +73,27 @@ Zieltest prüft nur Anzahl, Aufbau und Stabilität (fällt, liegt, versinkt nich
 **E15 – Charaktere standardmäßig „Original erhalten".** Skelett, Gewichte, Sequenzen bleiben wie im
 Original. Die Rig-Analyse (Namenskonvention + Strukturprüfungen) wird nur dokumentiert; Retarget
 auf Citizen kommt erst mit eigenem Funktionstest.
+
+**E16 – Ruhepose = was die Engine zeigt.** Nicht-statische Modelle spielen in Source immer eine
+Sequenz; bei Modellen ohne echte Animation (nur Einzelbild-Sequenzen) sieht man Frame 0 inkl.
+studiomdls Rz(90°), nicht die Bind-Pose. Deshalb schauen Source-Fahrzeuge nach +Y. SourceBridge
+backt diese Pose in die exportierte Bind-Pose (Geometrie, Skelett, Hüllen, Attachments), damit
+Modell und Collision in s&box ohne Animation so dastehen wie in Source. Animierte Modelle behalten
+Bind-Pose + Animationen (E11).
+
+**E17 – Eigene Fahrzeugkomponenten statt libwheel als Abhängigkeit.** libwheel (08/2024) kompiliert
+gegen die aktuelle Engine nur mit Obsolet-Warnungen und kennt weder Lenkung, Bremse noch Antrieb.
+SourceBridge übernimmt das Raycast-Federungsprinzip (mit Attribution) und ergänzt Lenkung
+(Winkel und Raten aus dem Script), Antrieb über Motorleistung bis zur Höchstgeschwindigkeit,
+Bremse, Rückwärtsgang, Sitz, Kamera, Motorsound. Radpositionen kommen wie in
+`CFourWheelVehiclePhysics::CalcWheelData` aus den Attachments `wheel_fl/fr/rl/rr`, die Fahrtrichtung
+von der Hinter- zur Vorderachse. Fahrphysik ist nachgebildet, nicht vphysics.
+
+**E18 – Lua wird nie ausgeführt.** Fahrzeug- und Sounddefinitionen (`list.Set("Vehicles", …)`,
+auch über lokale Helfer wie in `base_vehicles.lua`, und `sound.Add`) werden statisch aus
+Tabellenliteralen gelesen. Alles, was nur zur Laufzeit feststeht, wird als „dynamisch" gemeldet.
+Frameworks (simfphys, LVS, WAC, SCars) werden erkannt und gemeldet, nicht konvertiert.
+
+**E19 – Fehlende Fahrzeugwerte sind Schätzungen, klar markiert.** Federweg (8 in), Reifengrip (1,0),
+Bremsverzögerung (0,8 g) und Dämpfungsverhältnis (0,7) stehen nicht im Script; sie sind im Journal
+„geschätzt" und im Prefab unter der Gruppe „Estimated" einstellbar.

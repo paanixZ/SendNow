@@ -6,7 +6,7 @@ als bearbeitbare s&box-Quellassets ausgeben und in s&box prüfen. Kein Viewer, k
 Konverter: Ziel ist, dass der Inhalt in s&box **funktioniert** (Prop kollidiert, Charakter
 animiert, Auto fährt). VRChat ist kein Ziel.
 
-> Arbeitsname „SourceBridge". Stand: Etappe 1 (Props). Was belegt ist und was nicht, steht in
+> Arbeitsname „SourceBridge". Stand: Props, Charaktere und Fahrzeuge konvertierbar; die Zieltests in s&box stehen aus. Was belegt ist und was nicht, steht in
 > [`docs/capabilities.md`](docs/capabilities.md); offener Umfang in [`docs/roadmap.md`](docs/roadmap.md).
 
 ## Schnellstart
@@ -27,6 +27,8 @@ Ergebnis:
 Mehrere `--source` sind erlaubt (Ordner, `.gma`, `_dir.vpk`); die erste gewinnt, verdeckte Kopien
 werden im Bericht genannt. Es wird nie in anderen, nicht angegebenen Installationen gesucht.
 `sourcebridge batch --source … --project out` verarbeitet alle Modelle und ist fortsetzbar.
+`sourcebridge vehicle --source … --id <id> --project out` konvertiert ein GMod-Fahrzeug fahrbar
+(Definition aus Lua, Vehicle-Script, Modell, Motorsound → Prefab mit Rädern, Sitz, Kamera).
 
 ## Prüfen
 

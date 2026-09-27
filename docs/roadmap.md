@@ -26,11 +26,17 @@ Nichts aus dem Auftrag verschwindet; was nicht erledigt ist, steht hier.
 - [ ] Flexes → DMX (Fixture mit VTA)
 - [ ] AnimGraph-Anbindung für PlayerController (Citizen-Parameter)
 
-## Etappe 3 – Auto
-- [ ] Fahrzeug-Fixture (Karosserie, 4 Rad-Bones, Sitz-Attachment, Collision) + Standard-Vehicle-Script
-- [ ] KeyValues-Parser für Vehicle-Scripts, VehicleDoc mit Einheiten und Herkunft
-- [ ] s&box-Fahrzeug auf libwheel: fahren, lenken, bremsen, rückwärts, Sitz/Kamera, Motorsound
-- [ ] Zieltest mit messbaren Kriterien
+## Etappe 3 – Auto (Pipeline fertig, Zieltest ausstehend)
+- [x] Fahrzeug-Fixture (Karosserie, 4 Rad-Bones + Attachments, Sitz/Augen, Collision, Script, Lua, Sound)
+- [x] Statischer Lua-Leser (Fahrzeuge, sound.Add), Soundscripts, Vehicle-Script → VehicleDoc mit Einheit/Herkunft
+- [x] Ruhepose = Engine-Ansicht (E16), Fahrtrichtung aus Achsen
+- [x] s&box-Fahrzeug (eigene Komponenten nach libwheel-Prinzip, E17): fahren, lenken, bremsen, rückwärts, Sitz, Kamera, Motorsound
+- [x] Zieltest mit messbaren Kriterien
+- [ ] **Zieltest in s&box ausführen**, danach Fahrwerte nachjustieren
+- [ ] Federweg aus `vehicle_wheel_*_height`-Pose-Parametern ableiten (statt Schätzung)
+- [ ] Weitere Sound-Zustände (Start, Gänge, Crash), Lichter
+- [ ] Mehrspieler (Sync von Eingaben und Zustand)
+- [ ] Airboat/Pod, Framework-Adapter (simfphys, LVS) nach Untersuchung
 
 ## Etappe 4 – Erweiterbar
 - [ ] Batch-Jobs abbrechbar mit Fortschritt (Grundgerüst in `batch` vorhanden)

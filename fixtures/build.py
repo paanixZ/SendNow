@@ -30,7 +30,7 @@ SRC = HERE / "src"
 OUT = HERE / "build"
 ADDON = OUT / "addon"
 
-MODELS = {"crate": "crate.qc", "mannequin": "mannequin.qc"}
+MODELS = {"crate": "crate.qc", "mannequin": "mannequin.qc", "sb_buggy": "sb_buggy.qc"}
 
 
 def sha256(path: Path) -> str:
@@ -41,7 +41,7 @@ def compile_model(mdlc: str, name: str, qc: str) -> list[str]:
     work = OUT / "_work" / name
     if work.exists():
         shutil.rmtree(work)
-    shutil.copytree(SRC / name, work, ignore=shutil.ignore_patterns("materials"))
+    shutil.copytree(SRC / name, work, ignore=shutil.ignore_patterns("materials", "extra"))
     proc = subprocess.run(
         [mdlc, "build-qc", qc, "--out", str(work / "out")],
         cwd=work,
@@ -88,6 +88,21 @@ def convert_materials(name: str) -> list[str]:
             vtf.bake_to_file(str(dest))
             produced.append(dest.relative_to(ADDON).as_posix())
     return produced
+
+
+def copy_extra(name: str) -> list[str]:
+    """Addon files that are not compiled (Lua, scripts, sounds) are copied unchanged."""
+    root = SRC / name / "extra"
+    out = []
+    if root.exists():
+        for f in sorted(root.rglob("*")):
+            if f.is_file():
+                rel = f.relative_to(root)
+                dest = ADDON / rel
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(f, dest)
+                out.append(rel.as_posix())
+    return out
 
 
 def write_gma(path: Path, files: list[str], title: str) -> None:
@@ -162,6 +177,7 @@ def main() -> None:
     for name, qc in MODELS.items():
         files += compile_model(args.mdlc, name, qc)
         files += convert_materials(name)
+        files += copy_extra(name)
     shutil.rmtree(OUT / "_work", ignore_errors=True)
     files.sort()
     write_gma(OUT / "sourcebridge_fixtures.gma", files, "SourceBridge Fixtures")

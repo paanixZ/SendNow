@@ -19,9 +19,11 @@ Drei getrennte Ebenen:
 | sourcepp (craftablescience) | MIT | Python-Paket: VPK lesen, VTF dekodieren, PNG schreiben |
 | srctools (TeamSpen210) | MIT | Python-Paket: VMT/KeyValues, SMD-Gegenprüfung, MDL-Gegenprüfung |
 | Facepunch sbox-public | MIT | Referenzdateien in `templates/sbox/reference`, Compile-/Whitelist-Checks |
-| Facepunch sbox-libwheel | MIT | geplant: Radkollision (Etappe 3) |
+| Facepunch sbox-libwheel | MIT | Raycast-Federungsprinzip übernommen (Attribution in `SourceBridgeWheel.cs`), kein Code eingebunden |
 | mdlc (MoRanYue) | GPL-3.0 | nur externes Programm zum Bauen der Fixtures, nicht eingebunden oder verteilt |
 | System.Speech (NuGet, Microsoft) | MIT | nur für den lokalen Compile-Check der Engine |
+| Facepunch/garrysmod (GitHub) | kein Lizenzhinweis gefunden | nur gelesen: Schlüsselnamen echter Vehicle-Scripts und das Muster in `base_vehicles.lua`; nichts davon im Repo |
+| Source SDK 2013 `fourwheelvehiclephysics.cpp`, `vehicles.h` | Source-1-SDK-Lizenz | nur gelesen: Rad-Attachments, Pose-Parameter, Parameterstruktur |
 
 ## Fixtures
 

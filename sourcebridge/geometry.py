@@ -94,3 +94,37 @@ def extract(mdl: StudioModel, vvd: VertexFile, vtx: VtxFile, lod: int = 0) -> li
                 groups.append(MeshGroup(me.material, tris))
             out.append(ModelGeometry(bp.name, bpi, sub.name, mi, lod, verts, groups))
     return out
+
+
+def bake_pose(geo: ModelGeometry, bind_world, pose_world) -> ModelGeometry:
+    """Linear-blend skin a model into another pose; returns a new geometry in that pose."""
+    from .transform import mat34_apply, mat34_inverse, mat34_mul
+
+    skin = [mat34_mul(p, mat34_inverse(b)) for b, p in zip(bind_world, pose_world, strict=True)]
+    verts = []
+    for v in geo.vertices:
+        pos = [0.0, 0.0, 0.0]
+        nrm = [0.0, 0.0, 0.0]
+        for b, w in zip(v.bones, v.weights, strict=True):
+            m = skin[b]
+            p = mat34_apply(m, v.position)
+            n = (
+                m[0] * v.normal[0] + m[1] * v.normal[1] + m[2] * v.normal[2],
+                m[4] * v.normal[0] + m[5] * v.normal[1] + m[6] * v.normal[2],
+                m[8] * v.normal[0] + m[9] * v.normal[1] + m[10] * v.normal[2],
+            )
+            for k in range(3):
+                pos[k] += w * p[k]
+                nrm[k] += w * n[k]
+        ln = sum(x * x for x in nrm) ** 0.5 or 1.0
+        verts.append(Vertex(v.weights, v.bones, tuple(pos), tuple(x / ln for x in nrm), v.uv))
+    return ModelGeometry(
+        geo.body_part,
+        geo.body_part_index,
+        geo.model_name,
+        geo.model_index,
+        geo.lod,
+        verts,
+        geo.meshes,
+        geo.error,
+    )

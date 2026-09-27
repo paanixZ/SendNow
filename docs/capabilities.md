@@ -60,12 +60,25 @@ Valve-/Workshop-Modelle in CI. Zielgeprüft: **noch nichts** (s&box-Lauf aussteh
 | `$translucent`, `$alphatest`, `$nocull`, `$selfillum`, `$color2` | ja | ja | ausstehend | angenähert, siehe Journal |
 | Envmap, Phong, Detail, Lightwarp | ja | – | – | als „nicht übertragen" gemeldet |
 
+## Fahrzeuge (Adapter `gmod-standard-vehicle` v1)
+
+| Merkmal | gelesen | übertragen | zielgeprüft | Einschränkungen |
+|---|---|---|---|---|
+| Lua-Definition `list.Set("Vehicles", …)` (direkt/Helfer) | ja (statisch) | VehicleDoc | – | dynamische Werte gemeldet; getestet u.a. mit Facepunchs `base_vehicles.lua` (lokal, nicht im Repo) |
+| `sound.Add`, Soundscripts (`scripts/*sound*.txt`) | ja | Motor-Sound als .sound + WAV | ausstehend | nur Leerlauf/Gang-0-Sound verdrahtet, weitere Zustände gemeldet |
+| Vehicle-Script (body, engine, steering, axle, vehicle_sounds) | ja, vollständig roh erhalten | ja (Einheiten umgerechnet) | ausstehend | Boost, Getriebe-Schaltlogik nicht nachgebildet |
+| Radpositionen (`wheel_*`-Attachments) | ja | Rad-Objekte | ausstehend | |
+| Sitz, Augen (`vehicle_feet_passenger0`, `vehicle_driver_eyes`) | ja | Sitz + Kamera-Anker | ausstehend | Ein-/Ausstieg geschätzt |
+| Fahren, Lenken, Bremsen, Rückwärts | – | nachgebildet (SourceBridgeVehicle) | ausstehend | nicht vphysics-identisch; nur Einzelspieler |
+| Frameworks simfphys/LVS/WAC/SCars | erkannt | – | – | eigene Adapter nötig |
+| Airboat, Prisoner-Pod, APC | erkannt | – | – | nicht fahrbar konvertiert (gemeldet) |
+
 ## Weitere Inhalte
 
 | Inhalt | Stand |
 |---|---|
 | Charaktere mit Animation | Etappe 2: Pipeline fertig, Zieltest ausstehend |
-| Fahrzeuge (Scripts, fahrbar) | Etappe 3 |
+| Fahrzeuge (Standard-Source-Fahrzeuge, fahrbar) | Etappe 3: Pipeline fertig, Zieltest ausstehend |
 | Sounds, Soundscripts | Etappe 3/4 |
 | Maps (BSP/VMF) | Etappe 4 |
 | Lua-Addons (Inventar) | Etappe 4 |
@@ -76,4 +89,4 @@ Valve-/Workshop-Modelle in CI. Zielgeprüft: **noch nichts** (s&box-Lauf aussteh
 |---|---|---|---|
 | 1 Prop (`models/sourcebridge/crate.mdl`) | nicht ausgeführt | – | – |
 | 2 Charakter (`models/sourcebridge/mannequin.mdl`) | nicht ausgeführt | – | – |
-| 3 Auto | nicht vorhanden | – | – |
+| 3 Auto (`sb_buggy`) | nicht ausgeführt | – | – |

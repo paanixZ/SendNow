@@ -58,7 +58,7 @@
       "__guid": "6ad70641-3c6c-4402-9c85-9a4969af4764",
       "Flags": 0,
       "Name": "Plane",
-      "Scale": "5,5,5",
+      "Scale": "120,120,120",
       "Enabled": true,
       "Components": [
         {
@@ -177,6 +177,13 @@
           "PositionTolerance": 1.0,
           "GroundTolerance": 3.0,
           "RagdollTimeout": 10
+        },
+        {
+          "__type": "SourceBridge.Tests.VehicleTest",
+          "__guid": "40ac291f-1830-5d7d-825a-72ecd62c2836",
+          "__enabled": true,
+          "Flags": 0,
+          "WheelTolerance": 1.5
         }
       ],
       "Position": "0,0,0",

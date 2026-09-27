@@ -6,7 +6,7 @@ from pathlib import Path
 
 from conftest import FIXTURES, ROOT
 
-from sourcebridge.pipeline import import_model
+from sourcebridge.pipeline import import_model, import_vehicle
 from sourcebridge.sources import GmaSource, Mount
 
 sys.path.insert(0, str(ROOT / "tools"))
@@ -22,6 +22,12 @@ def test_committed_assets_are_up_to_date(tmp_path):
         docs.append(
             import_model(
                 Mount([GmaSource(FIXTURES / "sourcebridge_fixtures.gma")]), model, tmp_path / "p", assets
+            )
+        )
+    for vid in prep.VEHICLES:
+        docs.append(
+            import_vehicle(
+                Mount([GmaSource(FIXTURES / "sourcebridge_fixtures.gma")]), vid, tmp_path / "p", assets
             )
         )
     for d in docs:
@@ -41,7 +47,10 @@ def test_scene_is_the_facepunch_template_plus_runner():
     assert "SourceBridge Tests" in names
     assert not any(n.startswith("Cube") for n in names)
     kept = [g for g in tpl["GameObjects"] if not g["Name"].startswith("Cube")]
-    assert ours["GameObjects"][: len(kept)] == kept  # sun, sky, ground plane, camera unchanged
+    for g in kept:
+        if g["Name"] == "Plane":  # only the ground size changes (drive test)
+            g = dict(g, Scale=f"{prep.GROUND_SCALE},{prep.GROUND_SCALE},{prep.GROUND_SCALE}")
+        assert g in ours["GameObjects"], g["Name"]
     assert set(ours) == set(tpl)
 
 

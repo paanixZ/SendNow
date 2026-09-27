@@ -37,9 +37,24 @@ def _mount(args) -> Mount:
 def cmd_inspect(args) -> int:
     m = _mount(args)
     models = sorted(p for p in m.all_paths() if p.endswith(".mdl"))
+    from .vehicles import scan_addon
+
+    scan = scan_addon(m)
     info = {
         "sources": [s.describe() for s in m.sources],
         "models": models,
+        "vehicles": [
+            {
+                "id": v.id,
+                "model": v.model,
+                "script": v.script,
+                "class": v.get("Class"),
+                "defined_in": f"{v.source_file}:{v.line}",
+            }
+            for v in scan["vehicles"]
+        ],
+        "vehicle_frameworks": scan["frameworks"],
+        "lua_parse_errors": scan["errors"],
         "counts": {
             ext: sum(1 for p in m.all_paths() if p.endswith(ext))
             for ext in (".mdl", ".vmt", ".vtf", ".wav", ".mp3", ".lua", ".txt", ".bsp")
@@ -57,6 +72,17 @@ def cmd_import(args) -> int:
         m, args.model, Path(args.project), Path(args.sbox_assets) if args.sbox_assets else None
     )
     _summary(doc, Path(args.project))
+    return 0 if doc["status"]["progress"] == "converted" and "failed" not in doc["status"]["quality"] else 2
+
+
+def cmd_vehicle(args) -> int:
+    from .pipeline import import_vehicle
+
+    m = _mount(args)
+    doc = import_vehicle(m, args.id, Path(args.project), Path(args.sbox_assets) if args.sbox_assets else None)
+    _summary(doc, Path(args.project))
+    if doc.get("outputs", {}).get("extra", {}).get("vehicle_prefab"):
+        print(f"vehicle prefab: {doc['outputs']['extra']['vehicle_prefab']}")
     return 0 if doc["status"]["progress"] == "converted" and "failed" not in doc["status"]["quality"] else 2
 
 
@@ -101,7 +127,7 @@ def _summary(doc: dict, project: Path) -> None:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="sourcebridge")
     sub = ap.add_subparsers(dest="cmd", required=True)
-    for name in ("inspect", "import", "batch"):
+    for name in ("inspect", "import", "batch", "vehicle"):
         p = sub.add_parser(name)
         p.add_argument("--source", action="append", default=[], help="folder, .gma or _dir.vpk; first wins")
         if name != "inspect":
@@ -109,13 +135,17 @@ def main(argv: list[str] | None = None) -> int:
             p.add_argument("--sbox-assets", help="write into this s&box project's Assets folder")
         if name == "import":
             p.add_argument("--model", required=True, help="game path, e.g. models/props_c17/oildrum001.mdl")
+        if name == "vehicle":
+            p.add_argument("--id", required=True, help="vehicle id as in list.Set( 'Vehicles', <id>, ... )")
         if name == "batch":
             p.add_argument("--pattern", default="*")
             p.add_argument("--restart", action="store_true")
     args = ap.parse_args(argv)
     try:
-        return {"inspect": cmd_inspect, "import": cmd_import, "batch": cmd_batch}[args.cmd](args)
-    except (FormatError, LimitExceeded, UnsafePath, FileNotFoundError) as exc:
+        return {"inspect": cmd_inspect, "import": cmd_import, "batch": cmd_batch, "vehicle": cmd_vehicle}[
+            args.cmd
+        ](args)
+    except (FormatError, LimitExceeded, UnsafePath, FileNotFoundError, ValueError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
 
