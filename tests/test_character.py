@@ -194,9 +194,7 @@ def test_deformation_matches_original_at_every_frame(doc, mdl, mdl_data):
     anim = decode_animation(mdl, mdl_data, mdl.anim_descs[1])
     bind = bone_world_matrices(mdl.bones)
 
-    ref_file = next(
-        f for f in d["outputs"]["files"] if f["path"].endswith("_body_mannequin_ref_lod0.smd")
-    )
+    ref_file = next(f for f in d["outputs"]["files"] if f["path"].endswith("_body_mannequin_ref_lod0.smd"))
     ref = smd.Mesh.parse_smd(io.BytesIO((assets / ref_file["path"]).read_bytes()))
     anim_file = next(f for f in d["outputs"]["files"] if f["path"].endswith("_anim_walk.smd"))
     exported_anim = smd.Mesh.parse_smd(io.BytesIO((assets / anim_file["path"]).read_bytes()))
