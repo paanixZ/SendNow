@@ -1,6 +1,10 @@
 $modelname "sourcebridge/crate.mdl"
 $staticprop
 $body body "crate_ref.smd"
+$lod 30
+{
+	replacemodel "crate_ref.smd" "crate_lod1.smd"
+}
 $cdmaterials "models/sourcebridge/"
 $texturegroup skinfamilies
 {

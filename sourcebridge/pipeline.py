@@ -352,6 +352,10 @@ def import_model(
     doc["kind"] = cls.kind
     doc["model"] = model_summary(res)
     doc["physics"] = physics_summary(res)
+    if cls.kind == "character" or len(res.mdl.bones) > 1:
+        from .analyze import analyze_rig
+
+        doc["rig"] = analyze_rig(res.mdl)
     doc["materials"] = [
         {
             "path": m.path,
@@ -395,6 +399,9 @@ def import_model(
         "assets_root": str(target_root),
         "vmdl": out.vmdl_path,
         "prefab": out.prefab_path,
+        "ragdoll_prefab": out.ragdoll_prefab_path,
+        "sequences": out.sequences,
+        "sequence_checks": [asdict(c) for c in out.sequence_checks],
         "files": written,
     }
     doc["checks"] = checks

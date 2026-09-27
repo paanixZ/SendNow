@@ -49,3 +49,27 @@ nur `PhysicsBodyMarkup.mass_override` mit Body-Namen, deren Benennung für Props
 in der Entwicklungsumgebung gesperrt. Für Compile-Checks reichen die verwalteten Assemblies:
 Interop-Bindings aus `engine/Definitions` erzeugen, `System.Speech` aus NuGet, `Sandbox.Engine`
 bauen (`tools/build_sbox_reference.sh`). Danach s&box' eigene Whitelist-Prüfung.
+
+**E11 – studiomdl-Standarddrehung wird übernommen, nicht „repariert".** studiomdl dreht Wurzelknochen
+in Animationen um Rz(90°) (`g_defaultrotation`), bei `$staticprop` stattdessen die Geometrie. Die
+Engine zeigt genau diese Daten; SourceBridge exportiert sie unverändert. Der Charakter-Zieltest
+prüft Endeffektor-Positionen in s&box gegen diese Werte und deckt so auf, falls ModelDoc beim
+SMD-Import selbst noch einmal dreht.
+
+**E12 – Raum der Ragdoll-Hüllen wird gemessen, nicht angenommen.** Bone-lokal (Engine-Semantik
+für Ragdoll-Körper) und Modellraum (so schreibt es mdlc) sind beide plausibel; ohne echte
+Valve-Ragdolls hier nicht entscheidbar. SourceBridge vergleicht je Modell die Hüllen unter jeder
+Hypothese mit den Vertices des jeweiligen Bones und nimmt die beste; die Werte stehen im Journal.
+
+**E13 – Hitboxen als Kapseln.** s&box-ModelDoc kennt in Facepunchs Dateien nur `HitboxCapsule`.
+Source-Hitboxen (Quader) werden als umschließende Kapsel entlang der längsten Achse geschrieben,
+Trefferzonen als Tags. Im Journal als „angenähert".
+
+**E14 – Ragdoll-Gelenke.** `ragdollconstraint` mit genau einer freien Achse → `PhysicsJointRevolute`
+mit Min/Max, sonst `PhysicsJointConical` (Swing = größtes y/z-Limit, Twist = x). Anker am Kind-Bone
+im Raum des Eltern-Bones. Bedeutung von `anchor_angles` in s&box nicht belegt → „angenähert",
+Zieltest prüft nur Anzahl, Aufbau und Stabilität (fällt, liegt, versinkt nicht).
+
+**E15 – Charaktere standardmäßig „Original erhalten".** Skelett, Gewichte, Sequenzen bleiben wie im
+Original. Die Rig-Analyse (Namenskonvention + Strukturprüfungen) wird nur dokumentiert; Retarget
+auf Citizen kommt erst mit eigenem Funktionstest.

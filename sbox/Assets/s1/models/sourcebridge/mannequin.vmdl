@@ -1,0 +1,702 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						name = "mannequin_body_mannequin_ref_lod0"
+						filename = "s1/models/sourcebridge/mannequin/mannequin_body_mannequin_ref_lod0.smd"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "mannequin_head_mannequin_head_lod0"
+						filename = "s1/models/sourcebridge/mannequin/mannequin_head_mannequin_head_lod0.smd"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "mannequin_head_mannequin_helmet_lod0"
+						filename = "s1/models/sourcebridge/mannequin/mannequin_head_mannequin_helmet_lod0.smd"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+			{
+				_class = "BodyGroupList"
+				children = 
+				[
+					{
+						_class = "BodyGroup"
+						name = "head"
+						children = 
+						[
+							{
+								_class = "BodyGroupChoice"
+								name = "mannequin_head.smd"
+								meshes = 
+								[
+									"mannequin_head_mannequin_head_lod0",
+								]
+							},
+							{
+								_class = "BodyGroupChoice"
+								name = "mannequin_helmet.smd"
+								meshes = 
+								[
+									"mannequin_head_mannequin_helmet_lod0",
+								]
+							},
+						]
+						hidden_in_tools = false
+					},
+				]
+			},
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = 
+						[
+							{
+								from = "mannequin_skin.vmat"
+								to = "s1/materials/models/sourcebridge/mannequin_skin.vmat"
+							},
+							{
+								from = "mannequin_helmet.vmat"
+								to = "s1/materials/models/sourcebridge/mannequin_helmet.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = ""
+					},
+				]
+			},
+			{
+				_class = "AnimationList"
+				children = 
+				[
+					{
+						_class = "AnimFile"
+						name = "idle"
+						activity_name = "ACT_IDLE"
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = true
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						disable_interpolation = false
+						enable_scale = false
+						source_filename = "s1/models/sourcebridge/mannequin/mannequin_anim_idle.smd"
+						start_frame = -1
+						end_frame = -1
+						framerate = 30.0
+						take = 0
+						reverse = false
+					},
+					{
+						_class = "AnimFile"
+						name = "walk"
+						activity_name = "ACT_WALK"
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = true
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						disable_interpolation = false
+						enable_scale = false
+						source_filename = "s1/models/sourcebridge/mannequin/mannequin_anim_walk.smd"
+						start_frame = -1
+						end_frame = -1
+						framerate = 30.0
+						take = 0
+						reverse = false
+					},
+				]
+				default_root_bone_name = ""
+			},
+			{
+				_class = "AttachmentList"
+				children = 
+				[
+					{
+						_class = "Attachment"
+						name = "eyes"
+						parent_bone = "ValveBiped.Bip01_Head1"
+						relative_origin = [ 5.0, 0.0, 5.0 ]
+						relative_angles = [ 0.0, 0.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "anim_attachment_RH"
+						parent_bone = "ValveBiped.Bip01_R_Hand"
+						relative_origin = [ 3.0, 0.0, 0.0 ]
+						relative_angles = [ 0.0, 0.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+				]
+			},
+			{
+				_class = "HitboxSetList"
+				children = 
+				[
+					{
+						_class = "HitboxSet"
+						name = "default"
+						children = 
+						[
+							{
+								_class = "HitboxCapsule"
+								name = "hitbox_0_valvebiped_bip01_head1"
+								parent_bone = "ValveBiped.Bip01_Head1"
+								surface_property = "flesh"
+								translation_only = false
+								tags = "head"
+								radius = 4.0
+								point0 = [ 0.0, 0.0, 4.0 ]
+								point1 = [ 0.0, 0.0, 5.0 ]
+							},
+							{
+								_class = "HitboxCapsule"
+								name = "hitbox_1_valvebiped_bip01_spine2"
+								parent_bone = "ValveBiped.Bip01_Spine2"
+								surface_property = "flesh"
+								translation_only = false
+								tags = "chest"
+								radius = 5.0
+								point0 = [ 0.0, -2.0, 5.0 ]
+								point1 = [ 0.0, 2.0, 5.0 ]
+							},
+							{
+								_class = "HitboxCapsule"
+								name = "hitbox_2_valvebiped_bip01_pelvis"
+								parent_bone = "ValveBiped.Bip01_Pelvis"
+								surface_property = "flesh"
+								translation_only = false
+								tags = "stomach"
+								radius = 4.0
+								point0 = [ 0.0, -2.0, 0.5 ]
+								point1 = [ 0.0, 2.0, 0.5 ]
+							},
+							{
+								_class = "HitboxCapsule"
+								name = "hitbox_3_valvebiped_bip01_l_thigh"
+								parent_bone = "ValveBiped.Bip01_L_Thigh"
+								surface_property = "flesh"
+								translation_only = false
+								tags = "leg left"
+								radius = 2.5
+								point0 = [ 0.0, 0.0, -14.5 ]
+								point1 = [ 0.0, 0.0, -2.5 ]
+							},
+							{
+								_class = "HitboxCapsule"
+								name = "hitbox_4_valvebiped_bip01_r_thigh"
+								parent_bone = "ValveBiped.Bip01_R_Thigh"
+								surface_property = "flesh"
+								translation_only = false
+								tags = "leg right"
+								radius = 2.5
+								point0 = [ 0.0, 0.0, -14.5 ]
+								point1 = [ 0.0, 0.0, -2.5 ]
+							},
+						]
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsHullFile"
+						name = "mannequin_hull0"
+						parent_bone = "ValveBiped.Bip01_Pelvis"
+						surface_prop = "flesh"
+						collision_tags = "solid"
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "s1/models/sourcebridge/mannequin/mannequin_hull0.smd"
+						import_scale = 1.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "SingleHull"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "PhysicsHullFile"
+						name = "mannequin_hull1"
+						parent_bone = "ValveBiped.Bip01_Spine2"
+						surface_prop = "flesh"
+						collision_tags = "solid"
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "s1/models/sourcebridge/mannequin/mannequin_hull1.smd"
+						import_scale = 1.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "SingleHull"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "PhysicsHullFile"
+						name = "mannequin_hull2"
+						parent_bone = "ValveBiped.Bip01_Head1"
+						surface_prop = "flesh"
+						collision_tags = "solid"
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "s1/models/sourcebridge/mannequin/mannequin_hull2.smd"
+						import_scale = 1.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "SingleHull"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "PhysicsHullFile"
+						name = "mannequin_hull3"
+						parent_bone = "ValveBiped.Bip01_L_UpperArm"
+						surface_prop = "flesh"
+						collision_tags = "solid"
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "s1/models/sourcebridge/mannequin/mannequin_hull3.smd"
+						import_scale = 1.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "SingleHull"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "PhysicsHullFile"
+						name = "mannequin_hull4"
+						parent_bone = "ValveBiped.Bip01_L_Forearm"
+						surface_prop = "flesh"
+						collision_tags = "solid"
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "s1/models/sourcebridge/mannequin/mannequin_hull4.smd"
+						import_scale = 1.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "SingleHull"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "PhysicsHullFile"
+						name = "mannequin_hull5"
+						parent_bone = "ValveBiped.Bip01_R_UpperArm"
+						surface_prop = "flesh"
+						collision_tags = "solid"
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "s1/models/sourcebridge/mannequin/mannequin_hull5.smd"
+						import_scale = 1.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "SingleHull"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "PhysicsHullFile"
+						name = "mannequin_hull6"
+						parent_bone = "ValveBiped.Bip01_R_Forearm"
+						surface_prop = "flesh"
+						collision_tags = "solid"
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "s1/models/sourcebridge/mannequin/mannequin_hull6.smd"
+						import_scale = 1.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "SingleHull"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "PhysicsHullFile"
+						name = "mannequin_hull7"
+						parent_bone = "ValveBiped.Bip01_L_Thigh"
+						surface_prop = "flesh"
+						collision_tags = "solid"
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "s1/models/sourcebridge/mannequin/mannequin_hull7.smd"
+						import_scale = 1.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "SingleHull"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "PhysicsHullFile"
+						name = "mannequin_hull8"
+						parent_bone = "ValveBiped.Bip01_L_Calf"
+						surface_prop = "flesh"
+						collision_tags = "solid"
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "s1/models/sourcebridge/mannequin/mannequin_hull8.smd"
+						import_scale = 1.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "SingleHull"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "PhysicsHullFile"
+						name = "mannequin_hull9"
+						parent_bone = "ValveBiped.Bip01_R_Thigh"
+						surface_prop = "flesh"
+						collision_tags = "solid"
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "s1/models/sourcebridge/mannequin/mannequin_hull9.smd"
+						import_scale = 1.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "SingleHull"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "PhysicsHullFile"
+						name = "mannequin_hull10"
+						parent_bone = "ValveBiped.Bip01_R_Calf"
+						surface_prop = "flesh"
+						collision_tags = "solid"
+						recenter_on_parent_bone = false
+						offset_origin = [ 0.0, 0.0, 0.0 ]
+						offset_angles = [ 0.0, 0.0, 0.0 ]
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						filename = "s1/models/sourcebridge/mannequin/mannequin_hull10.smd"
+						import_scale = 1.0
+						faceMergeAngle = 10.0
+						maxHullVertices = 0
+						import_mode = "SingleHull"
+						optimization_algorithm = "QEM"
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+			{
+				_class = "PhysicsJointList"
+				children = 
+				[
+					{
+						_class = "PhysicsJointConical"
+						parent_body = "ValveBiped.Bip01_Pelvis"
+						child_body = "ValveBiped.Bip01_Spine2"
+						anchor_origin = [ 0.0, 0.0, 14.0 ]
+						anchor_angles = [ -0.0, 0.0, 0.0 ]
+						collision_enabled = false
+						linear_strength = 0.0
+						angular_strength = 0.0
+						friction = 0.0
+						enable_swing_limit = true
+						swing_limit = 0.0
+						swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+						enable_twist_limit = true
+						min_twist_angle = 0.0
+						max_twist_angle = 0.0
+					},
+					{
+						_class = "PhysicsJointConical"
+						parent_body = "ValveBiped.Bip01_Spine2"
+						child_body = "ValveBiped.Bip01_Head1"
+						anchor_origin = [ 0.0, 0.0, 14.0 ]
+						anchor_angles = [ -0.0, 0.0, 0.0 ]
+						collision_enabled = false
+						linear_strength = 0.0
+						angular_strength = 0.0
+						friction = 0.0
+						enable_swing_limit = true
+						swing_limit = 40.0
+						swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+						enable_twist_limit = true
+						min_twist_angle = -20.0
+						max_twist_angle = 20.0
+					},
+					{
+						_class = "PhysicsJointConical"
+						parent_body = "ValveBiped.Bip01_Spine2"
+						child_body = "ValveBiped.Bip01_L_UpperArm"
+						anchor_origin = [ 0.0, 6.0, 8.0 ]
+						anchor_angles = [ -0.0, 89.999979, 0.0 ]
+						collision_enabled = false
+						linear_strength = 0.0
+						angular_strength = 0.0
+						friction = 0.0
+						enable_swing_limit = true
+						swing_limit = 0.0
+						swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+						enable_twist_limit = true
+						min_twist_angle = 0.0
+						max_twist_angle = 0.0
+					},
+					{
+						_class = "PhysicsJointRevolute"
+						parent_body = "ValveBiped.Bip01_L_UpperArm"
+						child_body = "ValveBiped.Bip01_L_Forearm"
+						anchor_origin = [ 11.0, -0.0, 0.0 ]
+						anchor_angles = [ -0.0, 0.0, 0.0 ]
+						collision_enabled = false
+						linear_strength = 0.0
+						angular_strength = 0.0
+						friction = 0.0
+						enable_limit = true
+						min_angle = -120.0
+						max_angle = 0.0
+					},
+					{
+						_class = "PhysicsJointConical"
+						parent_body = "ValveBiped.Bip01_Spine2"
+						child_body = "ValveBiped.Bip01_R_UpperArm"
+						anchor_origin = [ 0.0, -6.0, 8.0 ]
+						anchor_angles = [ -0.0, -89.999979, 0.0 ]
+						collision_enabled = false
+						linear_strength = 0.0
+						angular_strength = 0.0
+						friction = 0.0
+						enable_swing_limit = true
+						swing_limit = 0.0
+						swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+						enable_twist_limit = true
+						min_twist_angle = 0.0
+						max_twist_angle = 0.0
+					},
+					{
+						_class = "PhysicsJointRevolute"
+						parent_body = "ValveBiped.Bip01_R_UpperArm"
+						child_body = "ValveBiped.Bip01_R_Forearm"
+						anchor_origin = [ 11.0, 0.0, 0.0 ]
+						anchor_angles = [ -0.0, -0.0, 0.0 ]
+						collision_enabled = false
+						linear_strength = 0.0
+						angular_strength = 0.0
+						friction = 0.0
+						enable_limit = true
+						min_angle = -120.0
+						max_angle = 0.0
+					},
+					{
+						_class = "PhysicsJointConical"
+						parent_body = "ValveBiped.Bip01_Pelvis"
+						child_body = "ValveBiped.Bip01_L_Thigh"
+						anchor_origin = [ 0.0, 4.0, -2.0 ]
+						anchor_angles = [ -0.0, 0.0, 0.0 ]
+						collision_enabled = false
+						linear_strength = 0.0
+						angular_strength = 0.0
+						friction = 0.0
+						enable_swing_limit = true
+						swing_limit = 0.0
+						swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+						enable_twist_limit = true
+						min_twist_angle = 0.0
+						max_twist_angle = 0.0
+					},
+					{
+						_class = "PhysicsJointRevolute"
+						parent_body = "ValveBiped.Bip01_L_Thigh"
+						child_body = "ValveBiped.Bip01_L_Calf"
+						anchor_origin = [ 0.0, 0.0, -17.0 ]
+						anchor_angles = [ -0.0, 0.0, 0.0 ]
+						collision_enabled = false
+						linear_strength = 0.0
+						angular_strength = 0.0
+						friction = 0.0
+						enable_limit = true
+						min_angle = 0.0
+						max_angle = 140.0
+					},
+					{
+						_class = "PhysicsJointConical"
+						parent_body = "ValveBiped.Bip01_Pelvis"
+						child_body = "ValveBiped.Bip01_R_Thigh"
+						anchor_origin = [ 0.0, -4.0, -2.0 ]
+						anchor_angles = [ -0.0, 0.0, 0.0 ]
+						collision_enabled = false
+						linear_strength = 0.0
+						angular_strength = 0.0
+						friction = 0.0
+						enable_swing_limit = true
+						swing_limit = 0.0
+						swing_offset_angle = [ 0.0, 0.0, 0.0 ]
+						enable_twist_limit = true
+						min_twist_angle = 0.0
+						max_twist_angle = 0.0
+					},
+					{
+						_class = "PhysicsJointRevolute"
+						parent_body = "ValveBiped.Bip01_R_Thigh"
+						child_body = "ValveBiped.Bip01_R_Calf"
+						anchor_origin = [ 0.0, 0.0, -17.0 ]
+						anchor_angles = [ -0.0, 0.0, 0.0 ]
+						collision_enabled = false
+						linear_strength = 0.0
+						angular_strength = 0.0
+						friction = 0.0
+						enable_limit = true
+						min_angle = 0.0
+						max_angle = 140.0
+					},
+				]
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = ""
+		base_model_name = ""
+	}
+}

@@ -18,7 +18,7 @@ SBOX = ROOT / "sbox"
 def test_committed_assets_are_up_to_date(tmp_path):
     assets = tmp_path / "Assets"
     docs = []
-    for model in prep.PROPS:
+    for model in prep.MODELS:
         docs.append(
             import_model(
                 Mount([GmaSource(FIXTURES / "sourcebridge_fixtures.gma")]), model, tmp_path / "p", assets
@@ -57,5 +57,7 @@ def test_generated_cases_reference_existing_prefabs():
     for line in text.splitlines():
         if line.strip().startswith('new( "'):
             prefab = line.split('"')[1]
+            if not prefab.endswith(".prefab"):
+                continue
             assert (SBOX / "Assets" / prefab).exists(), prefab
             assert Path(prefab).suffix == ".prefab"

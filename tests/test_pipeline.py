@@ -2,6 +2,7 @@ import hashlib
 import json
 import shutil
 
+import pytest
 from conftest import REFERENCE
 
 from sourcebridge.pipeline import import_model
@@ -26,7 +27,7 @@ def test_prop_import_end_to_end(tmp_path, gma_path):
     assert states["references resolve inside the output"] == "passed"
     assert states["s&box ModelDoc compile"] == "not-run"
     roles = sorted(f["role"] for f in doc["outputs"]["files"])
-    assert roles.count("render-mesh") == 1
+    assert roles.count("render-mesh") == 2  # LOD0 + LOD1
     assert roles.count("collision-hull") == 1
     assert roles.count("material") == 2
     assert roles.count("texture") == 2
@@ -136,10 +137,11 @@ def test_kv3_emitter_round_trips_reference_file():
     assert again == tree
 
 
-def test_generated_vmdl_only_uses_classes_and_keys_seen_in_facepunch_files(tmp_path, gma_path):
+@pytest.mark.parametrize("model", [CRATE, "models/sourcebridge/mannequin.mdl"])
+def test_generated_vmdl_only_uses_classes_and_keys_seen_in_facepunch_files(tmp_path, gma_path, model):
     survey = json.loads((REFERENCE / "modeldoc_classes.json").read_text())["classes"]
     known = {cls: set(keys) | {"_class"} for cls, keys in survey.items()}
-    doc = run(tmp_path, gma_path)
+    doc = import_model(Mount([open_source(gma_path)]), model, tmp_path / "proj")
     ours = _classes(parse_kv3((tmp_path / "proj/sbox/Assets" / doc["outputs"]["vmdl"]).read_text()), {})
     for cls, keys in ours.items():
         assert cls in known, f"invented node class {cls}"

@@ -25,6 +25,7 @@ class ModelGeometry:
     lod: int
     vertices: list[Vertex]
     meshes: list[MeshGroup]
+    error: str | None = None  # set when the source data for this model is inconsistent
 
     @property
     def triangle_count(self) -> int:
@@ -51,8 +52,22 @@ def extract(mdl: StudioModel, vvd: VertexFile, vtx: VtxFile, lod: int = 0) -> li
             raise FormatError(f"body part {bp.name}: vtx/mdl model count mismatch")
         for mi, sub in enumerate(bp.models):
             lods = vbp[mi]
-            if not lods or sub.num_vertices == 0:
+            if sub.num_vertices == 0:
                 out.append(ModelGeometry(bp.name, bpi, sub.name, mi, lod, [], []))
+                continue
+            if not lods:
+                out.append(
+                    ModelGeometry(
+                        bp.name,
+                        bpi,
+                        sub.name,
+                        mi,
+                        lod,
+                        [],
+                        [],
+                        error=f"{sub.num_vertices} vertices in the MDL but no LOD data in the VTX",
+                    )
+                )
                 continue
             if lod >= len(lods):
                 continue

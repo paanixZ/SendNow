@@ -46,11 +46,17 @@ def test_mdl_agrees_with_independent_reader():
 
 def test_geometry_matches_authored_box():
     m = read_mdl(read(CRATE + ".mdl"))
-    geos = extract(m, read_vvd(read(CRATE + ".vvd")), read_vtx(read(CRATE + ".dx90.vtx")))
+    vvd, vtx = read_vvd(read(CRATE + ".vvd")), read_vtx(read(CRATE + ".dx90.vtx"))
+    assert vtx.num_lods == 2
+    lod1 = extract(m, vvd, vtx, 1)[0]
+    assert lod1.triangle_count == 12  # plain box
+    assert lod1.bounds() == ((-16.0, -16.0, 0.0), (16.0, 16.0, 32.0))
+    assert vtx.body_parts[0][0][1].switch_point == 30.0
+    geos = extract(m, vvd, vtx)
     assert len(geos) == 1
     g = geos[0]
-    assert g.triangle_count == 12
-    assert g.bounds() == ((-16.0, -16.0, 0.0), (16.0, 16.0, 32.0))
+    assert g.triangle_count == 24  # box + lid
+    assert g.bounds() == ((-16.0, -16.0, 0.0), (16.0, 16.0, 34.0))
     # winding: triangle order agrees with the stored vertex normals
     for mesh in g.meshes:
         for a, b, c in mesh.triangles:

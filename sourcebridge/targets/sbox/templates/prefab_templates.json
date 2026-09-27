@@ -198,6 +198,40 @@
    "OnPropTakeDamage": null,
    "StartAsleep": true,
    "Tint": "1,1,1,1"
+  },
+  "Sandbox.ModelPhysics": {
+   "__type": "Sandbox.ModelPhysics",
+   "__guid": "cecbc318-16fe-463d-b4de-e97cc2813241",
+   "__enabled": false,
+   "Flags": 0,
+   "Bodies": [],
+   "IgnoreRoot": false,
+   "Joints": [],
+   "Locking": {
+    "X": true,
+    "Y": true,
+    "Z": true,
+    "Pitch": true,
+    "Yaw": true,
+    "Roll": true
+   },
+   "Model": "models/sbox_props/cardboard_box/cardboard_box_open.vmdl",
+   "MotionEnabled": true,
+   "OnComponentDestroy": null,
+   "OnComponentDisabled": null,
+   "OnComponentEnabled": null,
+   "OnComponentFixedUpdate": null,
+   "OnComponentStart": null,
+   "OnComponentUpdate": null,
+   "PhysicsWereCreated": false,
+   "Renderer": {
+    "_type": "component",
+    "component_id": "b74ed2fb-a2d4-404a-b2a5-fe031de64672",
+    "go": "8586e5c7-c62b-4ebf-9870-a08f645cfa64",
+    "component_type": "SkinnedModelRenderer"
+   },
+   "RigidbodyFlags": 0,
+   "StartAsleep": false
   }
  },
  "source": {
@@ -205,7 +239,8 @@
   "commit": "372c601f8332149851410d88f36c0184bcb988f1",
   "files": [
    "game/templates/sandbox.addon/Assets/entity/my_entity.prefab",
-   "game/addons/menu/Assets/scenes/menu-vr.scene"
+   "game/addons/menu/Assets/scenes/menu-vr.scene",
+   "game/addons/menu/Assets/scenes/reward-unbox.scene"
   ],
   "license": "MIT"
  }

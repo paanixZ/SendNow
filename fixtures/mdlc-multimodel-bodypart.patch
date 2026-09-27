@@ -1,0 +1,14 @@
+diff --git a/src/vtx_writer.rs b/src/vtx_writer.rs
+index b045851..7ce89a2 100644
+--- a/src/vtx_writer.rs
++++ b/src/vtx_writer.rs
+@@ -461,8 +461,8 @@ fn write_vtx_single(
+             bp_abs + 4,
+             (model_off + model_cursor * MODEL_SIZE) as i32 - bp_abs as i32,
+         );
+-        let model_abs = model_off + model_cursor * MODEL_SIZE;
+         for m in &bp.models {
++            let model_abs = model_off + model_cursor * MODEL_SIZE;
+             put_i32(&mut buf, model_abs, 1); // numLODs
+             put_i32(
+                 &mut buf,

@@ -56,6 +56,24 @@ Nur ausdrücklich angegebene Quellen werden durchsucht, die erste gewinnt. Der B
 `out/reports/`. Solche Dateien niemals committen oder veröffentlichen: Rechte an Valve- und
 Workshop-Inhalten sind nicht geklärt (siehe `docs/licensing.md`).
 
-## Nachweis 2 (Charakter) und 3 (Auto)
+## Nachweis 2: Charakter (Mannequin mit ValveBiped-Skelett)
 
-Folgen in Etappe 2 und 3 mit eigenen Testfällen in derselben Szene.
+Gleiche Szene, gleicher Play-Lauf. Neben den Prop-Zeilen erscheinen:
+
+| Test | bestanden, wenn |
+|---|---|
+| `character.model`, `character.bones` | Modell geladen, 17 Bones |
+| `character.sequences` | `idle` und `walk` vorhanden |
+| `character.attachments` | `eyes`, `anim_attachment_RH` vorhanden |
+| `character.bodygroups` | 1 Bodygroup (`head`: Kopf/Helm) |
+| `character.physics` | 11 Physik-Teile, 10 Gelenke |
+| `character.animation` (6×) | Sequenz bei Frame 0, n/3, 2n/3 eingefroren; Kopf, Hände, Füße liegen höchstens 1 Einheit von den Positionen entfernt, die aus den Original-Animationsdaten berechnet wurden |
+| `character.ragdoll.bodies` | Ragdoll-Prefab baut 11 Körper und 10 Gelenke |
+| `character.ragdoll.fall` | Ragdoll fällt, kommt zur Ruhe, kein Körper unter dem Boden |
+
+Wenn `character.animation` um ungefähr eine Vierteldrehung abweicht (Hände vertauschen x/y), dreht
+ModelDoc Wurzelknochen beim SMD-Import selbst; dann bitte die Zeilen schicken (E11).
+
+## Nachweis 3 (Auto)
+
+Folgt in Etappe 3 mit eigenem Testfall in derselben Szene.

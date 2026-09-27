@@ -8,17 +8,23 @@ Nichts aus dem Auftrag verschwindet; was nicht erledigt ist, steht hier.
 - [x] MDL/VVD/VTX/PHY lesen, SMD + Hülle + .vmdl + .vmat + PNG + Prefab schreiben
 - [x] s&box-Testprojekt mit Prop-Zieltest; Code kompiliert gegen echte Engine und besteht Whitelist
 - [ ] **Zieltest in s&box ausführen** (wartet auf Windows-Lauf, `docs/target-tests.md`)
-- [ ] Fixture mit LODs und Bodygroups, damit diese Pfade den Vorlagen-Schutztest durchlaufen
+- [x] Fixture mit LODs und Bodygroups, damit diese Pfade den Vorlagen-Schutztest durchlaufen
 - [ ] Vergleichsbild Original vs. Ziel für Materialien
 - [ ] Erste echte GMod-/HL2-Props lokal beim Nutzer
 
-## Etappe 2 – Charakter
-- [ ] Charakter-Fixture (ValveBiped-Skelett, Gewichte, Bodygroups, Attachments, Hitboxen, Sequenzen, .phy-Ragdoll)
-- [ ] Animationsdekodierung (mstudioanim_t, Sektionen, Delta/Autolayer), Ausgabe als Animations-SMD
-- [ ] AnimationList/AnimFile in .vmdl, Attachments, Hitboxen, Ragdoll-Joints
-- [ ] AnimGraph-Anbindung + Zieltest (Sequenz abspielen, Deformation prüfen)
-- [ ] Modi erhalten/reparieren/retarget/neu riggen; Namenswörterbücher, Struktur-Analyse
-- [ ] Flexes → DMX
+## Etappe 2 – Charakter (Pipeline fertig, Zieltest ausstehend)
+- [x] Charakter-Fixture (ValveBiped-Skelett, Gewichte, Bodygroups, Attachments, Hitboxen, Sequenzen, .phy-Ragdoll)
+- [x] Animationsdekodierung (mstudioanim_t, RLE, Quaternion48/64, Vector48, Sektionen, .ani-Blöcke), Animations-SMD
+- [x] AnimationList/AnimFile, AttachmentList, HitboxSetList, PhysicsJointList in .vmdl
+- [x] Zieltest: Sequenzen abspielen, Endeffektor-Positionen, Ragdoll (Prefab mit ModelPhysics)
+- [x] Deformationstest (CPU-Skinning Original vs. Export)
+- [x] Rig-Analyse (Namenskonventionen ValveBiped/Citizen/Mixamo + Strukturprüfungen), Modus „erhalten"
+- [ ] **Zieltest in s&box ausführen**
+- [ ] Sequenz-Events → AnimEvent, Pose-Parameter → PoseParamList, Blend-Sequenzen → 1D/2DBlend
+- [ ] Modi reparieren/retarget (Citizen, mit Funktionstest)/neu riggen
+- [ ] Include-Modelle zusammenführen
+- [ ] Flexes → DMX (Fixture mit VTA)
+- [ ] AnimGraph-Anbindung für PlayerController (Citizen-Parameter)
 
 ## Etappe 3 – Auto
 - [ ] Fahrzeug-Fixture (Karosserie, 4 Rad-Bones, Sitz-Attachment, Collision) + Standard-Vehicle-Script

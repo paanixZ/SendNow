@@ -27,7 +27,7 @@ from sourcebridge.sources import GmaSource, Mount  # noqa: E402
 
 SBOX = ROOT / "sbox"
 GMA = ROOT / "fixtures" / "build" / "sourcebridge_fixtures.gma"
-PROPS = ["models/sourcebridge/crate.mdl"]
+MODELS = ["models/sourcebridge/crate.mdl", "models/sourcebridge/mannequin.mdl"]
 
 
 def guid(seed: str) -> str:
@@ -36,7 +36,7 @@ def guid(seed: str) -> str:
 
 def convert(project: Path) -> list[dict]:
     docs = []
-    for model in PROPS:
+    for model in MODELS:
         docs.append(import_model(Mount([GmaSource(GMA)]), model, project, SBOX / "Assets"))
     return docs
 
@@ -58,6 +58,36 @@ def cases_cs(docs: list[dict]) -> str:
         groups = max(1, len(d["model"]["skin_families"]))
         prefab = d["outputs"]["prefab"]
         lines.append(f'\t\tnew( "{prefab}", {float(mass):.3f}f, {groups} ),')
+    lines += ["\t};", ""]
+    lines += [
+        "\tpublic static readonly IReadOnlyList<CharacterTest.Case> Characters = new CharacterTest.Case[]",
+        "\t{",
+    ]
+    for d in docs:
+        if d.get("kind") != "character":
+            continue
+        o = d["outputs"]
+        m = d["model"]
+        seqs = ", ".join(f'"{s["name"]}"' for s in o["sequences"])
+        atts = ", ".join(f'"{a["name"]}"' for a in m["attachments"])
+        bodygroups = sum(1 for bp in m["body_parts"] if len(bp["models"]) > 1)
+        phys = d.get("physics") or {"solids": [], "text_blocks": []}
+        parts = len(phys["solids"])
+        joints = sum(1 for b in phys["text_blocks"] if b["kind"] == "ragdollconstraint")
+        ragdoll = f'"{o["ragdoll_prefab"]}"' if o.get("ragdoll_prefab") else "null"
+        lines.append(f'\t\tnew( "{o["prefab"]}", {ragdoll}, {len(m["bones"])},')
+        lines.append(f"\t\t\tnew[] {{ {seqs} }}, new[] {{ {atts} }}, {bodygroups}, {parts}, {joints},")
+        lines.append("\t\t\tnew CharacterTest.SequenceCheck[]")
+        lines.append("\t\t\t{")
+        for c in o["sequence_checks"]:
+            bones = ", ".join(
+                f'new( "{b}", new Vector3( {p[0]:.4f}f, {p[1]:.4f}f, {p[2]:.4f}f ) )'
+                for b, p in c["bones"].items()
+            )
+            lines.append(
+                f'\t\t\t\tnew( "{c["sequence"]}", {c["frame"]}, {c["time"]:.6f}f, new CharacterTest.BoneExpectation[] {{ {bones} }} ),'
+            )
+        lines.append("\t\t\t} ),")
     lines += ["\t};", "}", ""]
     return "\n".join(lines)
 
@@ -84,7 +114,16 @@ def scene() -> str:
                     "DropHeight": 96,
                     "GroundTolerance": 1.5,
                     "Timeout": 10,
-                }
+                },
+                {
+                    "__type": "SourceBridge.Tests.CharacterTest",
+                    "__guid": guid("charactertest"),
+                    "__enabled": True,
+                    "Flags": 0,
+                    "PositionTolerance": 1.0,
+                    "GroundTolerance": 3.0,
+                    "RagdollTimeout": 10,
+                },
             ],
             "Children": [],
         }

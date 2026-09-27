@@ -7,4 +7,19 @@ public static class GeneratedCases
 	{
 		new( "s1/prefabs/models/sourcebridge/crate.prefab", 40.000f, 2 ),
 	};
+
+	public static readonly IReadOnlyList<CharacterTest.Case> Characters = new CharacterTest.Case[]
+	{
+		new( "s1/prefabs/models/sourcebridge/mannequin.prefab", "s1/prefabs/models/sourcebridge/mannequin_ragdoll.prefab", 17,
+			new[] { "idle", "walk" }, new[] { "eyes", "anim_attachment_RH" }, 1, 11, 10,
+			new CharacterTest.SequenceCheck[]
+			{
+				new( "idle", 0, 0.000000f, new CharacterTest.BoneExpectation[] { new( "ValveBiped.Bip01_Head1", new Vector3( 0.0000f, 0.0000f, 66.0000f ) ), new( "ValveBiped.Bip01_L_Hand", new Vector3( -27.0000f, 0.0000f, 60.0000f ) ), new( "ValveBiped.Bip01_R_Hand", new Vector3( 27.0000f, -0.0000f, 60.0000f ) ), new( "ValveBiped.Bip01_L_Foot", new Vector3( -4.0000f, 0.0000f, 2.0000f ) ), new( "ValveBiped.Bip01_R_Foot", new Vector3( 4.0000f, -0.0000f, 2.0000f ) ) } ),
+				new( "idle", 6, 0.200000f, new CharacterTest.BoneExpectation[] { new( "ValveBiped.Bip01_Head1", new Vector3( 0.6653f, -0.0000f, 66.4569f ) ), new( "ValveBiped.Bip01_L_Hand", new Vector3( -26.5893f, 0.0000f, 61.7468f ) ), new( "ValveBiped.Bip01_R_Hand", new Vector3( 27.3497f, -0.0000f, 59.1805f ) ), new( "ValveBiped.Bip01_L_Foot", new Vector3( -4.0000f, 0.0000f, 2.4727f ) ), new( "ValveBiped.Bip01_R_Foot", new Vector3( 4.0000f, -0.0000f, 2.4727f ) ) } ),
+				new( "idle", 13, 0.433333f, new CharacterTest.BoneExpectation[] { new( "ValveBiped.Bip01_Head1", new Vector3( -0.5661f, 0.0000f, 65.5862f ) ), new( "ValveBiped.Bip01_L_Hand", new Vector3( -27.3014f, 0.0000f, 58.4993f ) ), new( "ValveBiped.Bip01_R_Hand", new Vector3( 26.6544f, -0.0000f, 60.6829f ) ), new( "ValveBiped.Bip01_L_Foot", new Vector3( -4.0000f, 0.0000f, 1.5976f ) ), new( "ValveBiped.Bip01_R_Foot", new Vector3( 4.0000f, -0.0000f, 1.5976f ) ) } ),
+				new( "walk", 0, 0.000000f, new CharacterTest.BoneExpectation[] { new( "ValveBiped.Bip01_Head1", new Vector3( 0.0000f, 0.0000f, 66.0000f ) ), new( "ValveBiped.Bip01_L_Hand", new Vector3( -27.0000f, 0.0000f, 60.0000f ) ), new( "ValveBiped.Bip01_R_Hand", new Vector3( 27.0000f, -0.0000f, 60.0000f ) ), new( "ValveBiped.Bip01_L_Foot", new Vector3( -4.0000f, 0.0000f, 2.0000f ) ), new( "ValveBiped.Bip01_R_Foot", new Vector3( 4.0000f, -0.0000f, 2.0000f ) ) } ),
+				new( "walk", 10, 0.333333f, new CharacterTest.BoneExpectation[] { new( "ValveBiped.Bip01_Head1", new Vector3( 0.0000f, 0.0000f, 66.6914f ) ), new( "ValveBiped.Bip01_L_Hand", new Vector3( -25.7526f, 0.0000f, 67.8214f ) ), new( "ValveBiped.Bip01_R_Hand", new Vector3( 25.7526f, -0.0000f, 67.8214f ) ), new( "ValveBiped.Bip01_L_Foot", new Vector3( -4.0000f, -14.2665f, 5.8294f ) ), new( "ValveBiped.Bip01_R_Foot", new Vector3( 4.0000f, 2.7661f, 4.8309f ) ) } ),
+				new( "walk", 20, 0.666667f, new CharacterTest.BoneExpectation[] { new( "ValveBiped.Bip01_Head1", new Vector3( 0.0000f, 0.0000f, 66.6914f ) ), new( "ValveBiped.Bip01_L_Hand", new Vector3( -25.7526f, 0.0000f, 53.5615f ) ), new( "ValveBiped.Bip01_R_Hand", new Vector3( 25.7526f, -0.0000f, 53.5615f ) ), new( "ValveBiped.Bip01_L_Foot", new Vector3( -4.0000f, 2.7661f, 4.8309f ) ), new( "ValveBiped.Bip01_R_Foot", new Vector3( 4.0000f, -14.2665f, 5.8294f ) ) } ),
+			} ),
+	};
 }

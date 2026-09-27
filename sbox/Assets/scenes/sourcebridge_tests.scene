@@ -168,6 +168,15 @@
           "DropHeight": 96,
           "GroundTolerance": 1.5,
           "Timeout": 10
+        },
+        {
+          "__type": "SourceBridge.Tests.CharacterTest",
+          "__guid": "bea14616-8238-5b32-ac1f-b95a21ca94b5",
+          "__enabled": true,
+          "Flags": 0,
+          "PositionTolerance": 1.0,
+          "GroundTolerance": 3.0,
+          "RagdollTimeout": 10
         }
       ],
       "Position": "0,0,0",

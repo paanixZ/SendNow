@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import copy
 import json
+import math
 import posixpath
 import re
 import uuid
@@ -27,7 +28,9 @@ from ...geometry import ModelGeometry, extract
 from ...journal import Journal
 from ...materials import alpha_as_gray, build_vmat, decode_vtf, encode_png, has_meaningful_alpha
 from ...resolve import ResolvedModel
+from ...safety import normalize_game_path
 from ...transform import bone_world_matrices, mat34_apply
+from .character import attachment_nodes, build_animations, hitbox_nodes, joint_nodes
 from .kv3 import dumps_modeldoc
 
 ASSET_ROOT = "s1"
@@ -47,6 +50,10 @@ class SboxModelOutput:
     files: list[OutputFile] = field(default_factory=list)
     mesh_names: list[str] = field(default_factory=list)
     mesh_files: dict[tuple[int, int, int], str] = field(default_factory=dict)  # (bodypart, model, lod)
+    ragdoll_prefab_path: str | None = None
+    sequences: list[dict] = field(default_factory=list)
+    sequence_checks: list = field(default_factory=list)  # character.SequenceCheck
+    animated: bool = False
     hull_count: int = 0
 
     def add(self, path: str, data: bytes | str, role: str) -> None:
@@ -175,6 +182,8 @@ def build_sbox_model(res: ResolvedModel, journal: Journal) -> SboxModelOutput:
     for lod in range(num_lods):
         geos = extract(mdl, vvd, vtx, lod)
         for geo in geos:
+            if geo.error:
+                journal.error(subj, f"{geo.body_part}/{geo.model_name} lod{lod}", geo.error)
             if not geo.meshes:
                 continue
             mesh_name = f"{name}_{_safe_name(geo.body_part)}_{_safe_name(geo.model_name)}_lod{lod}"
@@ -272,11 +281,40 @@ def build_sbox_model(res: ResolvedModel, journal: Journal) -> SboxModelOutput:
         f"{len(families)} skin families -> DefaultMaterialGroup + {len(families) - 1} MaterialGroup",
     )
 
+    # ---- skeleton features: animations, attachments, hitboxes ----
+    trivial = len(mdl.bones) <= 1 and all(a.num_frames <= 1 for a in mdl.anim_descs)
+    if mdl.anim_descs and not trivial:
+        ani_path = normalize_game_path(mdl.anim_block_name) if mdl.anim_block_name else None
+        cres = build_animations(
+            mdl,
+            res.files[res.path],
+            res.files.get(ani_path) if ani_path else None,
+            model_dir,
+            name,
+            out,
+            journal,
+            subj,
+        )
+        children += cres.nodes
+        out.sequences = cres.sequences
+        out.sequence_checks = cres.checks
+        out.animated = bool(cres.nodes)
+    elif mdl.anim_descs:
+        journal.preserved(
+            subj,
+            "sequences",
+            "single-frame rest sequence(s) of a single-bone model are implied by the bind pose",
+        )
+    children += attachment_nodes(mdl, journal, subj)
+    children += hitbox_nodes(mdl, journal, subj)
+
     # ---- physics ----
     if res.phy is not None:
         hull_nodes = _physics(res, model_dir, name, out, journal)
         if hull_nodes:
             children.append({"_class": "PhysicsShapeList", "children": hull_nodes})
+        if len(res.phy.solids) > 1:
+            children += joint_nodes(mdl, res.phy, journal, subj)
     else:
         journal.preserved(subj, "collision", "source model has no .phy; none generated")
 
@@ -287,17 +325,26 @@ def build_sbox_model(res: ResolvedModel, journal: Journal) -> SboxModelOutput:
             subj, "model keyvalues", "not mapped yet; kept in AssetDocument extras and original .mdl"
         )
 
+    ragdoll = res.phy is not None and len(res.phy.solids) > 1
+    prop_physics = res.phy is not None and not ragdoll
     root = {
         "_class": "RootNode",
         "children": children,
-        "model_archetype": "physics_prop_model" if res.phy is not None else "",
-        "primary_associated_entity": "prop_physics" if res.phy is not None else "",
+        "model_archetype": "physics_prop_model" if prop_physics else "",
+        "primary_associated_entity": "prop_physics" if prop_physics else "",
         "anim_graph_name": "",
         "base_model_name": "",
     }
     out.add(vmdl_path, dumps_modeldoc(root), "modeldoc")
     out.prefab_path = f"{ASSET_ROOT}/prefabs/{stem}.prefab"
-    out.add(out.prefab_path, _prefab(res, vmdl_path, name), "prefab")
+    if out.animated or ragdoll:
+        first = out.sequences[0]["name"] if out.sequences else None
+        out.add(out.prefab_path, _skinned_prefab(vmdl_path, name, first), "prefab")
+        if ragdoll:
+            out.ragdoll_prefab_path = f"{ASSET_ROOT}/prefabs/{stem}_ragdoll.prefab"
+            out.add(out.ragdoll_prefab_path, _ragdoll_prefab(vmdl_path, name), "prefab")
+    else:
+        out.add(out.prefab_path, _prefab(res, vmdl_path, name), "prefab")
     return out
 
 
@@ -330,23 +377,89 @@ def _texture_outputs(res, vtf_path, out, journal, subject, cache, normal=False) 
     return roles
 
 
+def _bone_render_boxes(res: ResolvedModel) -> dict[int, tuple[list[float], list[float]]]:
+    """Model-space AABB of the LOD0 vertices whose strongest weight is on each bone."""
+    boxes: dict[int, tuple[list[float], list[float]]] = {}
+    for geo in extract(res.mdl, res.vvd, res.vtx, 0):
+        used = {i for m in geo.meshes for t in m.triangles for i in t}
+        for i in used:
+            v = geo.vertices[i]
+            b = v.bones[max(range(len(v.weights)), key=lambda k: v.weights[k])]
+            lo, hi = boxes.setdefault(b, ([math.inf] * 3, [-math.inf] * 3))
+            for k in range(3):
+                lo[k] = min(lo[k], v.position[k])
+                hi[k] = max(hi[k], v.position[k])
+    return boxes
+
+
+def _iou(a, b) -> float:
+    inter = 1.0
+    for k in range(3):
+        d = min(a[1][k], b[1][k]) - max(a[0][k], b[0][k])
+        if d <= 0:
+            return 0.0
+        inter *= d
+    va = math.prod(max(1e-6, a[1][k] - a[0][k]) for k in range(3))
+    vb = math.prod(max(1e-6, b[1][k] - b[0][k]) for k in range(3))
+    return inter / (va + vb - inter)
+
+
+def _aabb(pts):
+    return [min(p[k] for p in pts) for k in range(3)], [max(p[k] for p in pts) for k in range(3)]
+
+
 def _physics(
     res: ResolvedModel, model_dir: str, name: str, out: SboxModelOutput, journal: Journal
 ) -> list[dict]:
     mdl, phy = res.mdl, res.phy
     world = bone_world_matrices(mdl.bones)
     bone_by_name = {b.name.lower(): b.index for b in mdl.bones}
+    ragdoll = len(phy.solids) > 1
+    render_boxes = _bone_render_boxes(res) if ragdoll else {}
+    spaces = {
+        "bone-local": lambda b, p: mat34_apply(world[b], p),
+        "model": lambda b, p: p,
+        "model rotated by studiomdl default Rz(90)": lambda b, p: (p[1], -p[0], p[2]),
+    }
+    convert = spaces["model"]
+    if ragdoll:
+        # One decision for the whole model: every solid of a .phy uses the same convention.
+        totals = dict.fromkeys(spaces, 0.0)
+        compared = 0
+        for solid in phy.solids:
+            b = bone_by_name.get(phy.solid_info(solid.index).get("name", "").lower())
+            if b is None or b not in render_boxes:
+                continue
+            pts = [p for h in solid.hulls for p in h.points]
+            for k, f in spaces.items():
+                totals[k] += _iou(_aabb([f(b, p) for p in pts]), render_boxes[b])
+            compared += 1
+        if compared == 0:
+            chosen = "bone-local"
+            journal.estimated(
+                res.path,
+                "collision space",
+                "no solid could be compared with its bone's mesh; assumed bone-local (Source ragdoll convention)",
+            )
+        else:
+            chosen = max(totals, key=totals.get)
+            detail = ", ".join(f"{k}: {v / compared:.2f}" for k, v in totals.items())
+            state = journal.converted if totals[chosen] / compared >= 0.5 else journal.approximated
+            state(
+                res.path,
+                "collision space",
+                f"detected '{chosen}' from mean overlap of {compared} solids with their bones' mesh ({detail})",
+            )
+        convert = spaces[chosen]
     nodes = []
     hull_i = 0
     for solid in phy.solids:
         info = phy.solid_info(solid.index)
         bone_name = info.get("name", "")
         bone = bone_by_name.get(bone_name.lower(), 0)
-        ragdoll = len(phy.solids) > 1
-        to_model = world[bone] if ragdoll else None
         surface = info.get("surfaceprop", mdl.surface_prop or "default")
         for hull in solid.hulls:
-            pts = [mat34_apply(to_model, p) for p in hull.points] if to_model else hull.points
+            pts = [convert(bone, p) for p in hull.points]
             hull_name = f"{name}_hull{hull_i}"
             rel = f"{model_dir}/{hull_name}.smd"
             out.add(rel, write_smd_hull(mdl, bone, pts, hull.triangles), "collision-hull")
@@ -379,10 +492,6 @@ def _physics(
         "collision",
         f"{len(phy.solids)} solid(s), {hull_i} convex hull(s) as PhysicsHullFile (one SMD per hull, SingleHull)",
     )
-    if len(phy.solids) > 1:
-        journal.lost(
-            res.path, "ragdoll constraints", "joint limits not mapped yet (Etappe 2); kept in .phy text"
-        )
     mass = phy.total_mass
     if mass is not None:
         journal.converted(res.path, "mass", f"{mass:g} kg -> Rigidbody.MassOverride in the prefab")
@@ -434,3 +543,38 @@ def _prefab(res: ResolvedModel, vmdl_path: str, name: str) -> str:
         comps.append(component("Sandbox.ModelCollider", vmdl_path, Model=model))
         comps.append(component("Sandbox.Rigidbody", vmdl_path, MassOverride=float(mass) if mass else 0))
     return prefab_json(name, vmdl_path, comps)
+
+
+def _skinned_prefab(vmdl_path: str, name: str, sequence: str | None) -> str:
+    renderer = component(
+        "Sandbox.SkinnedModelRenderer",
+        vmdl_path,
+        Model=vmdl_path,
+        UseAnimGraph=False,
+        Sequence={"Name": sequence, "Looping": True, "Blending": False},
+        CreateAttachments=True,
+    )
+    return prefab_json(name, vmdl_path, [renderer])
+
+
+def _ragdoll_prefab(vmdl_path: str, name: str) -> str:
+    seed = vmdl_path + "ragdoll"
+    root_guid = _guid(seed + "root")
+    renderer = component("Sandbox.SkinnedModelRenderer", seed, Model=vmdl_path, UseAnimGraph=False)
+    physics = component(
+        "Sandbox.ModelPhysics",
+        seed,
+        Model=vmdl_path,
+        Renderer={
+            "_type": "component",
+            "component_id": renderer["__guid"],
+            "go": root_guid,
+            "component_type": "SkinnedModelRenderer",
+        },
+        Bodies=[],
+        Joints=[],
+        PhysicsWereCreated=False,
+        Locking={"X": False, "Y": False, "Z": False, "Pitch": False, "Yaw": False, "Roll": False},
+        MotionEnabled=True,
+    )
+    return prefab_json(name + "_ragdoll", seed, [renderer, physics])

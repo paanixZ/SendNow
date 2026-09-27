@@ -155,10 +155,11 @@ class AnimDesc:
     fps: float
     flags: int
     num_frames: int
-    anim_block: int
-    anim_offset: int  # absolute offset of the first mstudioanim_t when stored in the .mdl
-    section_frames: int
-    section_offset: int
+    anim_block: int  # 0 = data in the .mdl, otherwise index into the external .ani block table
+    anim_index: int  # offset of the first mstudioanim_t, relative to desc_offset (block 0) or the block start
+    section_frames: int  # frames per section; 0 = no sections
+    section_index: int  # offset of the section table, relative to desc_offset
+    desc_offset: int  # absolute file offset of this mstudioanimdesc_t
     num_movements: int
     num_ik_rules: int
 
@@ -513,9 +514,10 @@ def _read_anim_descs(r: Reader, count: int, base: int) -> list[AnimDesc]:
                 flags=flags,
                 num_frames=numframes,
                 anim_block=animblock,
-                anim_offset=o + animindex if animblock == 0 else animindex,
+                anim_index=animindex,
                 section_frames=sectionframes,
-                section_offset=o + sectionindex if sectionindex else 0,
+                section_index=sectionindex,
+                desc_offset=o,
                 num_movements=nummovements,
                 num_ik_rules=numikrules,
             )

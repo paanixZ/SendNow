@@ -30,7 +30,7 @@ SRC = HERE / "src"
 OUT = HERE / "build"
 ADDON = OUT / "addon"
 
-MODELS = {"crate": "crate.qc"}
+MODELS = {"crate": "crate.qc", "mannequin": "mannequin.qc"}
 
 
 def sha256(path: Path) -> str:
@@ -67,6 +67,8 @@ def convert_materials(name: str) -> list[str]:
 
     produced = []
     mat_root = SRC / name / "materials"
+    if not mat_root.exists():
+        return []
     for f in sorted(mat_root.rglob("*")):
         if not f.is_file():
             continue
@@ -127,10 +129,25 @@ def tool_version(mdlc: str) -> dict:
     commit = subprocess.run(
         ["git", "-C", str(repo), "rev-parse", "HEAD"], capture_output=True, text=True, check=False
     ).stdout.strip()
+    diff = subprocess.run(
+        ["git", "-C", str(repo), "diff"], capture_output=True, text=True, check=False
+    ).stdout
+    patch = (HERE / "mdlc-multimodel-bodypart.patch").read_text()
+    if diff and diff != patch:
+        raise SystemExit("mdlc checkout has local changes other than fixtures/mdlc-multimodel-bodypart.patch")
+    if not diff:
+        raise SystemExit(
+            "apply fixtures/mdlc-multimodel-bodypart.patch to mdlc first (see fixtures/README.md)"
+        )
     import sourcepp
 
     return {
-        "mdlc": {"url": "https://github.com/MoRanYue/mdlc", "commit": commit or "unknown"},
+        "mdlc": {
+            "url": "https://github.com/MoRanYue/mdlc",
+            "commit": commit or "unknown",
+            "patch": "fixtures/mdlc-multimodel-bodypart.patch",
+            "patch_sha256": hashlib.sha256(patch.encode()).hexdigest(),
+        },
         "sourcepp": sourcepp.__version__,
     }
 

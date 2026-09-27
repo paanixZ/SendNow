@@ -94,3 +94,47 @@ def bone_world_matrices(bones) -> list[Mat34]:
         local = quat_to_mat34(b.quat, b.pos)
         world.append(local if b.parent < 0 else mat34_mul(world[b.parent], local))
     return world
+
+
+def quat_mul(a, b):
+    ax, ay, az, aw = a
+    bx, by, bz, bw = b
+    return (
+        aw * bx + ax * bw + ay * bz - az * by,
+        aw * by - ax * bz + ay * bw + az * bx,
+        aw * bz + ax * by - ay * bx + az * bw,
+        aw * bw - ax * bx - ay * by - az * bz,
+    )
+
+
+def mat34_to_radian_euler(m: Mat34) -> tuple[float, float, float]:
+    """Source MatrixAngles as RadianEuler (x=roll, y=pitch, z=yaw); inverse of euler_to_quat."""
+    xy = math.hypot(m[0], m[4])
+    if xy > 0.001:
+        yaw = math.atan2(m[4], m[0])
+        pitch = math.atan2(-m[8], xy)
+        roll = math.atan2(m[9], m[10])
+    else:
+        yaw = math.atan2(-m[1], m[5])
+        pitch = math.atan2(-m[8], xy)
+        roll = 0.0
+    return (roll, pitch, yaw)
+
+
+def quat_to_radian_euler(q) -> tuple[float, float, float]:
+    return mat34_to_radian_euler(quat_to_mat34(q, (0.0, 0.0, 0.0)))
+
+
+def mat34_to_qangle_deg(m: Mat34) -> tuple[float, float, float]:
+    """Source QAngle (pitch, yaw, roll) in degrees, as used by attachment/joint angles."""
+    roll, pitch, yaw = mat34_to_radian_euler(m)
+    return (math.degrees(pitch), math.degrees(yaw), math.degrees(roll))
+
+
+def pose_world(bones, pose) -> list[Mat34]:
+    """Model-space bone matrices for a list of (pos, quat) local poses."""
+    world: list[Mat34] = []
+    for b, (p, q) in zip(bones, pose, strict=True):
+        local = quat_to_mat34(q, p)
+        world.append(local if b.parent < 0 else mat34_mul(world[b.parent], local))
+    return world
