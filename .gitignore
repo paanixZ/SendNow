@@ -6,3 +6,5 @@ fixtures/build/_work/
 /out/
 /build/
 .venv/
+tools/*/bin/
+tools/*/obj/

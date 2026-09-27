@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -e ".[dev]"
+      - run: ruff check .
+      - run: ruff format --check .
+      - run: pytest -q
+
+  sbox-code:
+    # Compiles sbox/Code against the managed s&box engine (Facepunch/sbox-public) and runs
+    # s&box's own API whitelist verifier. Does not run the engine.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+      - uses: actions/cache@v4
+        with:
+          path: ~/sbox-reference
+          key: sbox-reference-372c601f8332149851410d88f36c0184bcb988f1
+      - run: tools/check_sbox_code.sh

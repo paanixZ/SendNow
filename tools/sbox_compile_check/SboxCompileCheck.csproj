@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Compile-only check of sbox/Code against the real s&box managed engine built from
+    Facepunch/sbox-public (see tools/build_sbox_reference.sh). This proves our C# uses
+    existing APIs with correct signatures. It does not run the engine and does not replace
+    the in-editor target tests (docs/target-tests.md).
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <!-- s&box package assembly naming, required by the whitelist verifier -->
+    <AssemblyName>package.local.sourcebridge_tests</AssemblyName>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <SboxManaged Condition="'$(SboxManaged)' == ''">$(SBOX_MANAGED)</SboxManaged>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <NoWarn>CS1591;CS0618</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../sbox/Code/**/*.cs" />
+    <Compile Include="GamePreamble.cs" />
+    <Reference Include="$(SboxManaged)/*.dll" Private="false" />
+  </ItemGroup>
+</Project>
